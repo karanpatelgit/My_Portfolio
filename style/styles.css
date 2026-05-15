@@ -97,7 +97,7 @@ body.light-mode .math-element {
 .math-element {
   position:   absolute;
   color:      var(--accent);
-  opacity:    0.2;
+  opacity:    0.5;
   user-select: none;
   pointer-events: none;
   will-change: transform, left, top;
