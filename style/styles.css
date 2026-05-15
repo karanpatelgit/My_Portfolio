@@ -138,83 +138,130 @@ body.light-mode .math-element {
 header { position: fixed; top: 0; right: 0; z-index: 100; }
  
 /* Dot navigation */
-.nav{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* ── NAV ── */
+.nav-wrap {
+  position: fixed;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  z-index: 999;
+  background: rgba(255,255,255,0.05);
+  border: 0.5px solid rgba(255,255,255,0.12);
+  border-radius: 30px;
+  padding: 14px 10px;
+  backdrop-filter: blur(12px);
 }
 
-.nav-dot{
-    display: flex;
-    gap: 26px;
-    padding: 12px 30px;
-    border-radius: 40px;
-    background: rgba(0, 0, 0, 0.45);
-    border: 1px solid rgba(225, 6, 0, 0.45);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 0 25px rgba(225,6,0,0.25);
+.dot-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  text-decoration: none;
 }
 
-.nav-dot{
-    list-style: none;
+.dot-wrap:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 8px;
+  background: rgba(255,255,255,0.12);
 }
 
-.nav-dot a{
-    position: relative;
-    text-decoration: none;
-    color: var(--white);
-    font-size: 14px;
-    font-weight: 500;
-    padding: 6px 4px;
-    transition: 0.3s ease;
-}
-
-.nav-dot a::after{
-    content: '';
-    position: absolute;
-    left: 50%;
-    bottom: -8px;
-    width: 0%;
-    height: 2px;
-    background: var(--red);
-    transform: translateX(-50%);
-    transition: 0.3s ease;
-    box-shadow: 0 0 10px rgba(225,6,0,0.8);
-}
-
-.nav-dot a:hover{
-    color: var(--yellow);
-    text-shadow: 0 0 10px rgba(225,6,0,0.8);
-}
-
-.nav-dot a:hover::after{
-    width: 100%;
-}
-
-.nav-dot a.active{
-    color: var(--yellow);
-}
-
-.nav-dot a.active::after{
-    width: 100%;
- 
 .dot {
-  width:           12px;
-  height:          12px;
-  border-radius:   50%;
-  background:      rgba(244, 241, 222, 0.35);
-  border:          2px solid transparent;
-  cursor:          pointer;
-  transition:      background var(--transition), border-color var(--transition), transform var(--transition);
-  font-size:       0;      /* hide text visually */
-  overflow:        hidden;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.25);
+  transition: all 0.3s ease;
 }
-.dot:hover,
-.dot:focus-visible {
-  background:    var(--accent);
-  border-color:  var(--accent);
-  transform:     scale(1.3);
-  outline:       none;
+
+.dot-wrap:hover .dot,
+.dot-wrap.active .dot {
+  background: #e9c46a;
+  width: 10px;
+  height: 10px;
+  box-shadow: 0 0 10px rgba(233,196,106,0.6);
+}
+
+.dot-label {
+  position: absolute;
+  right: calc(100% + 14px);
+  background: rgba(233,196,106,0.95);
+  color: #1a2e2c;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(6px);
+  transition: all 0.2s ease;
+  pointer-events: none;
+}
+
+.dot-wrap:hover .dot-label { opacity: 1; transform: translateX(0); }
+
+/* ── ORBITAL SPINNER ── */
+.orbital-ring {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 16px;
+}
+
+.avatar-core {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90px; height: 90px;
+  border-radius: 50%;
+  border: 2.5px solid #e9c46a;
+  overflow: hidden;
+  z-index: 2;
+  box-shadow: 0 0 30px rgba(233,196,106,0.25);
+}
+.avatar-core img { width: 100%; height: 100%; object-fit: cover; }
+
+.orbit {
+  position: absolute;
+  top: 50%; left: 50%;
+  border-radius: 50%;
+  border: 1px solid rgba(233,196,106,0.2);
+  transform: translate(-50%, -50%);
+}
+.orbit-1 { width: 130px; height: 130px; animation: spin 6s linear infinite; }
+.orbit-2 { width: 175px; height: 175px; animation: spin-rev 10s linear infinite; }
+.orbit-3 { width: 220px; height: 220px; animation: spin 14s linear infinite; }
+
+@keyframes spin     { to { transform: translate(-50%,-50%) rotate(360deg);  } }
+@keyframes spin-rev { to { transform: translate(-50%,-50%) rotate(-360deg); } }
+
+.sym {
+  position: absolute;
+  top: -10px; left: 50%;
+  transform: translateX(-50%);
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: rgba(38,70,83,0.9);
+  border: 1px solid #e9c46a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  color: #e9c46a;
+  font-weight: 700;
 }
  
 /* Floating label tracker */
