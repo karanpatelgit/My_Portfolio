@@ -138,13 +138,65 @@ body.light-mode .math-element {
 header { position: fixed; top: 0; right: 0; z-index: 100; }
  
 /* Dot navigation */
-.nav-dots {
-  display:         flex;
-  flex-direction:  column;
-  gap:             18px;
-  padding:         28px 20px;
-  position:        relative;
+.nav{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
+.nav-dot{
+    display: flex;
+    gap: 26px;
+    padding: 12px 30px;
+    border-radius: 40px;
+    background: rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(225, 6, 0, 0.45);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 25px rgba(225,6,0,0.25);
+}
+
+.nav-dot{
+    list-style: none;
+}
+
+.nav-dot a{
+    position: relative;
+    text-decoration: none;
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 6px 4px;
+    transition: 0.3s ease;
+}
+
+.nav-dot a::after{
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -8px;
+    width: 0%;
+    height: 2px;
+    background: var(--red);
+    transform: translateX(-50%);
+    transition: 0.3s ease;
+    box-shadow: 0 0 10px rgba(225,6,0,0.8);
+}
+
+.nav-dot a:hover{
+    color: var(--yellow);
+    text-shadow: 0 0 10px rgba(225,6,0,0.8);
+}
+
+.nav-dot a:hover::after{
+    width: 100%;
+}
+
+.nav-dot a.active{
+    color: var(--yellow);
+}
+
+.nav-dot a.active::after{
+    width: 100%;
  
 .dot {
   width:           12px;
