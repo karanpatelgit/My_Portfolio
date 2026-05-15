@@ -740,6 +740,163 @@ section {
 }
  
 @media (max-width: 480px) {
-  .grid { grid-template-columns: 1fr; }
-  .sticker { display: none; }
+  
+}
+@media (max-width: 600px){
+   .grid { grid-template-columns: 1fr; }
+   .sticker { display: none; }
+    body{
+        overflow-x:hidden;
+    }
+
+    .head{
+        flex-direction:column;
+        gap:14px;
+        padding:18px 16px;
+    }
+
+    .logo h1{
+        font-size:22px;
+    }
+
+    .link-ul,
+    .sco-ul{
+        display:none;
+    }
+
+    .main{
+        margin:60px 14px 40px;
+    }
+
+    .container{
+        flex-direction:column-reverse;
+        align-items:center;
+        text-align:center;
+        gap:34px;
+    }
+
+    .hi h3{
+        font-size:14px;
+        letter-spacing:1.5px;
+    }
+
+    .main h4{
+        font-size:27px;
+        line-height:1.25;
+        margin-bottom:16px;
+    }
+
+    .main p{
+        font-size:13.5px;
+        line-height:1.65;
+        max-width:320px;
+        margin:0 auto 28px;
+    }
+
+    .btn{
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        gap:14px;
+    }
+
+    .btn a{
+        width:100%;
+        max-width:280px;
+        padding:14px 0;
+        font-size:14px;
+        font-weight:500;
+        border-radius:32px;
+        text-align:center;
+        letter-spacing:0.4px;
+    }
+
+    .btn a:first-child{
+        background:var(--red);
+        box-shadow:0 0 18px rgba(225,6,0,0.6);
+    }
+
+    .btn a:last-child{
+        background:transparent;
+        border:1px solid var(--red);
+    }
+
+    .btn a:active{
+        transform:scale(0.97);
+    }
+
+    .Me{
+        width:200px;
+        height:200px;
+    }
+
+    .Me img{
+        width:145px;
+        height:145px;
+    }
+
+    .orbit{
+        width:200px;
+        height:200px;
+        animation-duration:32s;
+    }
+
+    .icon{
+        width:26px;
+        height:26px;
+        font-size:12px;
+    }
+
+    .html  { transform: rotate(0deg)   translate(100px); }
+    .unity { transform: rotate(51deg)  translate(100px); }
+    .java  { transform: rotate(103deg) translate(100px); }
+    .C     { transform: rotate(154deg) translate(100px); }
+    .figma { transform: rotate(206deg) translate(100px); }
+    .js    { transform: rotate(257deg) translate(100px); }
+    .css   { transform: rotate(309deg) translate(100px); }
+
+    .projects{
+        padding:70px 14px 50px;
+    }
+
+    .section-title{
+        font-size:28px;
+        margin-bottom:44px;
+    }
+
+    .projects-grid{
+        grid-template-columns:1fr;
+        gap:22px;
+    }
+
+    .project-image{
+        height:150px;
+    }
+
+    .project-content h3{
+        font-size:17px;
+    }
+
+    .project-content p{
+        font-size:13px;
+        line-height:1.55;
+    }
+
+    .project-actions{
+        justify-content:center;
+        gap:10px;
+    }
+
+    .project-actions a{
+        font-size:12px;
+        padding:8px 16px;
+    }
+
+    .footer{
+        padding:18px 10px;
+    }
+
+    .footer p{
+        font-size:12px;
+    }
 }
