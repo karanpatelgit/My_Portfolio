@@ -41,15 +41,14 @@
 <header>
   <!-- Floating cursor label (JS) -->
   <div class="menu-tracker" aria-hidden="true"></div>
-  <div class= nav>
-  <nav class="nav-dots" role="navigation" aria-label="Primary navigation">
-    <a href="#Home"     class="dot" data-label="Home"     aria-label="Go to Home"></a>
-    <a href="#About"    class="dot" data-label="About"    aria-label="Go to About"></a>
-    <a href="#Journey"  class="dot" data-label="Journey"  aria-label="Go to Journey"></a>
-    <a href="#Projects" class="dot" data-label="Projects" aria-label="Go to Projects"></a>
-    <a href="#Resume"   class="dot" data-label="Resume"   aria-label="Go to Resume"></a>
-    <a href="#Feedback" class="dot" data-label="Feedback" aria-label="Go to Feedback"></a>
-  </nav>
+  <nav class="nav-wrap" aria-label="Primary navigation">
+  <a href="#Home"     class="dot-wrap active" aria-label="Home">    <div class="dot"></div><span class="dot-label">Home</span></a>
+  <a href="#About"    class="dot-wrap" aria-label="About">   <div class="dot"></div><span class="dot-label">About</span></a>
+  <a href="#Journey"  class="dot-wrap" aria-label="Journey"> <div class="dot"></div><span class="dot-label">Journey</span></a>
+  <a href="#Projects" class="dot-wrap" aria-label="Projects"><div class="dot"></div><span class="dot-label">Projects</span></a>
+  <a href="#Resume"   class="dot-wrap" aria-label="Resume">  <div class="dot"></div><span class="dot-label">Resume</span></a>
+  <a href="#Feedback" class="dot-wrap" aria-label="Feedback"><div class="dot"></div><span class="dot-label">Feedback</span></a>
+</nav>
   </div>
 </header>
  
@@ -77,7 +76,14 @@
           <!--
             Image files : assets/image/(image)
           -->
-          <img src="assests/image/PROFILEPHOTO.jpg" alt="Karan Patel — profile photo" title="Karan Patel">
+         <div class="orbital-ring">
+            <div class="orbit orbit-1"><div class="sym">π</div></div>
+            <div class="orbit orbit-2"><div class="sym">∑</div></div>
+            <div class="orbit orbit-3"><div class="sym">∞</div></div>
+            <div class="avatar-core">
+              <img src="assests/image/PROFILEPHOTO.jpg" alt="Karan Patel">
+  </div>
+</div>
         </div>
         <!-- Decorative corner ornaments -->
         <div class="frame-ornament top-left"     aria-hidden="true"></div>
