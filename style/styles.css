@@ -214,7 +214,81 @@ section {
   width:       200px;
   margin:      0 auto;
 }
- 
+.orbit{
+    position: absolute;
+    width: 380px;
+    height: 380px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    animation: spin 18s linear infinite;
+    z-index: 1;
+} 
+.icon{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 42px;
+    height: 42px;
+    background: var(--black);
+    border: 1px solid var(--red);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: var(--white);
+    cursor: pointer;
+    transform-origin: 0 0;
+    transition: 0.3s ease;
+}
+
+.icon:hover{
+    background: var(--red);
+    box-shadow: 0 0 15px var(--red);
+}
+
+
+.html   { transform: rotate(0deg)   translate(190px); }
+.unity  { transform: rotate(51deg)  translate(190px); }
+.java   { transform: rotate(103deg) translate(190px); }
+.C      { transform: rotate(154deg) translate(190px); }
+.figma  { transform: rotate(206deg) translate(190px); }
+.js     { transform: rotate(257deg) translate(190px); }
+.css    { transform: rotate(309deg) translate(190px); }
+
+
+.html i{ color:#e34f26; }
+.css i{ color:#1572b6; }
+.js i{ color:#f7df1e; }
+.java i{ color:#007396; }
+.unity i{ color:#ffffff; }
+.figma i{ color:#f24e1e; }
+.C i{ color:#a8b9cc; }
+
+
+@keyframes spin{
+    from{
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to{
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+
+@keyframes spin{
+    from{
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to{
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+
+
 .avatar {
   width:         180px;
   height:        180px;
