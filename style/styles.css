@@ -1,9 +1,9 @@
 /* ============================================================
    styles.css  —  Karan Patel Portfolio
-   All styles centralised here; no inline styles in HTML.
+   All styles centralised here;  a little bit styles in HTML.
    ============================================================ */
  
-/* ── 1. DESIGN TOKENS ──────────────────────────────────────── */
+/* ── 1. DESIGN TOKENS/Roots ──────────────────────────────────────── */
 :root {
   --primary:        #2a9d8f;
   --primary-dark:   #264653;
@@ -49,12 +49,55 @@ ul   { list-style: none; }
   overflow:   hidden;
   pointer-events: none;
 }
- 
+/* # Theme swich button # */
+/* ── THEME TOGGLE BUTTON ── */
+.theme-toggle {
+  position:      fixed;
+  top:           20px;
+  left:          20px;
+  z-index:       999;
+  background:    rgba(255,255,255,0.1);
+  border:        1px solid rgba(255,255,255,0.2);
+  color:         var(--text-light);
+  width:         42px;
+  height:        42px;
+  border-radius: 50%;
+  cursor:        pointer;
+  font-size:     1rem;
+  backdrop-filter: blur(8px);
+  transition:    all 0.3s ease;
+}
+.theme-toggle:hover {
+  background: var(--accent);
+  color:      var(--primary-dark);
+}
+
+/* ── LIGHT MODE VARIABLES ── */
+body.light-mode {
+  --primary:     #2a9d8f;
+  --primary-dark:#e8f4f3;
+  --text-light:  #1a1a2e;
+  --text-muted:  rgba(26,26,46,0.65);
+  --card-bg:     rgba(255,255,255,0.75);
+  --card-border: rgba(0,0,0,0.1);
+  background:    #f0f7f6;
+  color:         #1a1a2e;
+}
+
+body.light-mode .reactive-bg {
+  background: linear-gradient(135deg, #d4eeeb, #a8ddd8) !important;
+}
+
+body.light-mode .math-element {
+  color: #2a9d8f;
+  opacity: 0.25;
+}
+
 /* Floating math elements */
 .math-element {
   position:   absolute;
   color:      var(--accent);
-  opacity:    0.18;
+  opacity:    0.2;
   user-select: none;
   pointer-events: none;
   will-change: transform, left, top;
