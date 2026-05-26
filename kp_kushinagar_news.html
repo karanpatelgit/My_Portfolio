@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Karan Patel Kushinagar News — Local news, updates and community stories from Kushinagar">
+<title>KP Kushinagar News | Karan Patel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="stylesheet" href="page-theme.css">
+<style>
+  /* ── News Card ── */
+  .news-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+  }
+  .news-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+    border-color: rgba(233,196,106,0.4);
+  }
+  .news-card .news-header {
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .news-card .news-body { padding: 1.25rem; flex: 1; }
+  .news-card .news-meta {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+  .news-card .news-meta .category {
+    color: var(--primary);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .news-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; line-height: 1.4; }
+  .news-card p  { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
+  .news-card .news-footer {
+    padding: 0.75rem 1.25rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .news-card .read-time { font-size: 0.72rem; color: var(--text-muted); }
+
+  /* ── Platform Card ── */
+  .platform-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    transition: all 0.25s;
+    text-decoration: none;
+    color: var(--text);
+  }
+  .platform-card:hover {
+    border-color: var(--accent);
+    background: var(--card-hover);
+    transform: translateX(4px);
+  }
+  .platform-card .plat-icon {
+    width: 52px; height: 52px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+  .platform-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.2rem; }
+  .platform-card p  { font-size: 0.8rem; color: var(--text-muted); }
+  .platform-card .followers {
+    margin-left: auto;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* ── Breaking News Banner ── */
+  .breaking-banner {
+    background: linear-gradient(135deg, rgba(231,111,81,0.15), rgba(233,196,106,0.08));
+    border: 1px solid rgba(231,111,81,0.35);
+    border-radius: var(--radius);
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .breaking-label {
+    background: #e76f51;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.65rem;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+  .breaking-text { font-size: 0.88rem; color: var(--text); font-weight: 500; }
+</style>
+</head>
+<body>
+
+<div id="reactive-bg"></div>
+
+<!-- ── TOP NAVIGATION ── -->
+<nav class="page-nav" aria-label="Page navigation">
+  <a href="index.html" class="nav-brand">Karan <span>Patel</span></a>
+  <div class="nav-links">
+    <a href="index.html"              class="nav-btn home-btn"><i class="fas fa-home"></i> Home</a>
+    <a href="Inspire Kushinara.html"  class="nav-btn"><i class="fas fa-chevron-left"></i> Inspire Kushinara</a>
+    <a href="index.html#Projects"     class="nav-btn"><i class="fas fa-th-large"></i> All Projects</a>
+    <button id="theme-toggle" class="nav-btn theme-btn" title="Toggle light/dark" aria-label="Toggle theme">☀️</button>
+  </div>
+</nav>
+
+<main class="page-main">
+
+  <!-- Hero -->
+  <div class="page-hero fade-up fade-up-1">
+    <span class="tag">📰 News &amp; Community</span>
+    <h1>Karan Patel <em>Kushinagar</em> News</h1>
+    <p>Your local voice from Kushinagar — covering education, development, youth achievements and community stories that matter.</p>
+    <div class="hero-divider"></div>
+    <div style="display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;margin-top:1rem;">
+      <a href="https://www.facebook.com/share/1E6qppoJPY/" target="_blank" class="btn btn-primary">
+        <i class="fab fa-facebook"></i> Facebook Page
+      </a>
+      <a href="https://youtube.com/@karan_patel_kushinagar" target="_blank" class="btn btn-outline">
+        <i class="fab fa-youtube"></i> YouTube Channel
+      </a>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="section fade-up fade-up-2">
+    <div class="stat-grid">
+      <div class="stat-box"><span class="num">5k+</span><span class="lbl">Facebook Followers</span></div>
+      <div class="stat-box"><span class="num">Local</span><span class="lbl">Kushinagar Focus</span></div>
+      <div class="stat-box"><span class="num">Multi</span><span class="lbl">Platform Presence</span></div>
+      <div class="stat-box"><span class="num">2023</span><span class="lbl">Active Since</span></div>
+    </div>
+  </div>
+
+  <!-- Breaking Banner -->
+  <div class="section fade-up fade-up-2">
+    <div class="breaking-banner">
+      <span class="breaking-label">📢 Active</span>
+      <span class="breaking-text">Follow the Facebook page and YouTube channel for latest updates from Kushinagar district — education, development, youth and more.</span>
+    </div>
+  </div>
+
+  <!-- News Topics -->
+  <div class="section fade-up fade-up-2">
+    <div class="section-title">What We Cover</div>
+    <p class="section-sub">Topics that matter to the Kushinagar community.</p>
+    <div class="card-grid">
+
+      <div class="news-card">
+        <div class="news-header" style="background:linear-gradient(135deg,#1e3a42,#264653);">🎓</div>
+        <div class="news-body">
+          <div class="news-meta">
+            <span class="category">Education</span>
+          </div>
+          <h3>Student Achievements &amp; Exam Results</h3>
+          <p>Celebrating toppers, scholarship recipients and remarkable student journeys from schools and colleges across Kushinagar.</p>
+        </div>
+        <div class="news-footer">
+          <span class="read-time"><i class="fas fa-tag"></i> Education</span>
+          <a href="https://www.facebook.com/share/1E6qppoJPY/" target="_blank" class="btn btn-primary" style="padding:0.35rem 0.9rem;font-size:0.78rem;">Follow</a>
+        </div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-header" style="background:linear-gradient(135deg,#2a3d1e,#3a5022);">🌾</div>
+        <div class="news-body">
+          <div class="news-meta">
+            <span class="category">Development</span>
+          </div>
+          <h3>Rural Development &amp; Infrastructure</h3>
+          <p>Roads, schools, hospitals and government schemes — tracking how development reaches (or misses) villages in the Kushinagar region.</p>
+        </div>
+        <div class="news-footer">
+          <span class="read-time"><i class="fas fa-tag"></i> Development</span>
+          <a href="https://www.facebook.com/share/1E6qppoJPY/" target="_blank" class="btn btn-primary" style="padding:0.35rem 0.9rem;font-size:0.78rem;">Follow</a>
+        </div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-header" style="background:linear-gradient(135deg,#3a1e2a,#4a2030);">💡</div>
+        <div class="news-body">
+          <div class="news-meta">
+            <span class="category">Youth &amp; Tech</span>
+          </div>
+          <h3>Youth Innovation &amp; Digital Skills</h3>
+          <p>Stories of young people from Kushinagar learning coding, creating content and using technology to transform their futures.</p>
+        </div>
+        <div class="news-footer">
+          <span class="read-time"><i class="fas fa-tag"></i> Youth</span>
+          <a href="https://www.facebook.com/share/1E6qppoJPY/" target="_blank" class="btn btn-primary" style="padding:0.35rem 0.9rem;font-size:0.78rem;">Follow</a>
+        </div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-header" style="background:linear-gradient(135deg,#1e2a3a,#263550);">🏛️</div>
+        <div class="news-body">
+          <div class="news-meta">
+            <span class="category">Community</span>
+          </div>
+          <h3>Community Events &amp; Local Culture</h3>
+          <p>Festivals, religious events, social initiatives and community drives that bring Kushinagar together — covered with respect and authenticity.</p>
+        </div>
+        <div class="news-footer">
+          <span class="read-time"><i class="fas fa-tag"></i> Community</span>
+          <a href="https://www.facebook.com/share/1E6qppoJPY/" target="_blank" class="btn btn-primary" style="padding:0.35rem 0.9rem;font-size:0.78rem;">Follow</a>
+        </div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-header" style="background:linear-gradient(135deg,#3a2a1e,#4a3820);">⚽</div>
+        <div class="news-body">
+          <div class="news-meta">
+            <span class="category">Sports</span>
+          </div>
+          <h3>Local Sports &amp; Talent Spotlight</h3>
+          <p>Highlighting kabaddi, cricket and athletics talent from Kushinagar — because local heroes deserve local coverage.</p>
+        </div>
+        <div class="news-footer">
+          <span class="read-time"><i class="fas fa-tag"></i> Sports</span>
+          <a href="https://www.facebook.com/share/1E6qppoJPY/" target="_blank" class="btn btn-primary" style="padding:0.35rem 0.9rem;font-size:0.78rem;">Follow</a>
+        </div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-header" style="background:linear-gradient(135deg,#1e3a32,#264640);">🌿</div>
+        <div class="news-body">
+          <div class="news-meta">
+            <span class="category">Health &amp; Awareness</span>
+          </div>
+          <h3>Health Camps &amp; Awareness Drives</h3>
+          <p>Coverage of government health campaigns, local NGO drives and important health information for families in rural Kushinagar.</p>
+        </div>
+        <div class="news-footer">
+          <span class="read-time"><i class="fas fa-tag"></i> Health</span>
+          <a href="https://www.facebook.com/share/1E6qppoJPY/" target="_blank" class="btn btn-primary" style="padding:0.35rem 0.9rem;font-size:0.78rem;">Follow</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Platforms -->
+  <div class="section fade-up fade-up-3">
+    <div class="section-title">Find Us On</div>
+    <p class="section-sub">Follow on your preferred platform to stay updated.</p>
+    <div style="display:flex;flex-direction:column;gap:0.75rem;">
+
+      <a href="https://www.facebook.com/share/1E6qppoJPY/" target="_blank" class="platform-card">
+        <div class="plat-icon" style="background:rgba(24,119,242,0.15);color:#1877f2;"><i class="fab fa-facebook"></i></div>
+        <div>
+          <h3>Facebook</h3>
+          <p>Main news hub — articles, photos, announcements and community discussions.</p>
+        </div>
+        <span class="followers">5k+ <i class="fas fa-users" style="font-size:0.8rem;opacity:0.6;"></i></span>
+      </a>
+
+      <a href="https://youtube.com/@karan_patel_kushinagar" target="_blank" class="platform-card">
+        <div class="plat-icon" style="background:rgba(255,0,0,0.12);color:#ff0000;"><i class="fab fa-youtube"></i></div>
+        <div>
+          <h3>YouTube</h3>
+          <p>Video reports, interviews and educational content from Kushinagar and beyond.</p>
+        </div>
+        <span class="followers">Growing <i class="fas fa-chart-line" style="font-size:0.8rem;opacity:0.6;"></i></span>
+      </a>
+
+      <a href="https://www.instagram.com/karan_patel_kushinagar?igsh=MWM0bnU5NXA3eTZxNw==" target="_blank" class="platform-card">
+        <div class="plat-icon" style="background:rgba(193,53,132,0.12);color:#c13584;"><i class="fab fa-instagram"></i></div>
+        <div>
+          <h3>Instagram</h3>
+          <p>Reels, stories and quick updates — short-form content for mobile audiences.</p>
+        </div>
+        <span class="followers">Active <i class="fas fa-fire" style="font-size:0.8rem;opacity:0.6;"></i></span>
+      </a>
+
+      <a href="https://www.linkedin.com/in/karan-patel-b47298330" target="_blank" class="platform-card">
+        <div class="plat-icon" style="background:rgba(0,119,181,0.12);color:#0077b5;"><i class="fab fa-linkedin"></i></div>
+        <div>
+          <h3>LinkedIn</h3>
+          <p>Professional updates, collaborations and networking for educational initiatives.</p>
+        </div>
+        <span class="followers">Connect <i class="fas fa-handshake" style="font-size:0.8rem;opacity:0.6;"></i></span>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- About the Channel -->
+  <div class="section fade-up fade-up-4">
+    <div class="section-title">About the Channel</div>
+    <p class="section-sub">Why Karan Patel Kushinagar News exists.</p>
+    <div class="card" style="max-width:700px;margin:0 auto;">
+      <p style="line-height:1.9;color:var(--text-muted);">
+        Kushinagar is a historically significant district — home to the parinirvana site of Lord Buddha and a growing young population. Yet, local achievements, community stories and important development news often go unreported by mainstream media.
+      </p>
+      <p style="line-height:1.9;color:var(--text-muted);margin-top:1rem;">
+        <strong style="color:var(--text);">Karan Patel Kushinagar News</strong> was created to give the district a digital voice — celebrating local talent, reporting ground-level development honestly, and building a connected community across social platforms.
+      </p>
+      <p style="line-height:1.9;color:var(--text-muted);margin-top:1rem;">
+        As someone born and raised near Kushinagar, I believe every story here deserves to be told — with accuracy, empathy and pride.
+      </p>
+      <div style="margin-top:1.5rem;">
+        <a href="https://wa.me/919453100702" target="_blank" class="btn btn-primary">
+          <i class="fab fa-whatsapp"></i> Send a News Tip
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content Creation -->
+  <div class="section fade-up fade-up-4">
+    <div class="section-title">Content Creation Skills</div>
+    <p class="section-sub">Tools and skills behind the content.</p>
+    <div class="card">
+      <div class="skill-pills">
+        <span class="pill teal">Canva</span>
+        <span class="pill teal">Video Editing</span>
+        <span class="pill">Reel Creation</span>
+        <span class="pill">Graphic Design</span>
+        <span class="pill">Community Management</span>
+        <span class="pill">News Writing</span>
+        <span class="pill">Photography</span>
+        <span class="pill">Social Media Strategy</span>
+        <span class="pill teal">Facebook Ads (Basic)</span>
+        <span class="pill">Thumbnail Design</span>
+        <span class="pill">Storytelling</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Callout -->
+  <div class="section fade-up fade-up-5">
+    <div class="callout">
+      <strong>"Every village has stories worth telling. Every student has achievements worth celebrating."</strong> — Karan Patel Kushinagar News is my commitment to making sure those stories reach the people who need to hear them.
+    </div>
+  </div>
+
+  <!-- Bottom Nav -->
+  <div class="page-bottom-nav">
+    <a href="Inspire Kushinara.html" class="nav-btn"><i class="fas fa-chevron-left"></i> Inspire Kushinara</a>
+    <a href="index.html"             class="nav-btn home-btn"><i class="fas fa-home"></i> Home</a>
+    <a href="index.html#Projects"    class="nav-btn"><i class="fas fa-th-large"></i> All Projects</a>
+  </div>
+
+</main>
+
+<footer class="page-footer">
+  <p>© 2025 <a href="index.html">Karan Patel</a> · Kushinagar News · <a href="https://www.facebook.com/share/1E6qppoJPY/" target="_blank">Facebook</a> · <a href="https://youtube.com/@karan_patel_kushinagar" target="_blank">YouTube</a></p>
+</footer>
+
+<script src="reactive-bg-shared.js"></script>
+</body>
+</html>
