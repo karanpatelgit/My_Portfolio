@@ -10,42 +10,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <link rel="stylesheet" href="style/styles.css">
-<style>
-  .code-block {
-    background: rgba(0,0,0,0.35);
-    border: 1px solid rgba(42,157,143,0.25);
-    border-radius: 10px;
-    padding: 1rem 1.25rem;
-    font-family: 'Space Grotesk', monospace;
-    font-size: 0.82rem;
-    color: #e9c46a;
-    overflow-x: auto;
-    line-height: 1.7;
-    white-space: pre;
-    margin-top: 0.75rem;
-  }
-  body.light-theme .code-block {
-    background: rgba(38,70,83,0.08);
-    color: #264653;
-    border-color: rgba(42,157,143,0.3);
-  }
-  .lang-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-    padding: 0.2rem 0.7rem;
-    border-radius: 6px;
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    background: rgba(42,157,143,0.15);
-    border: 1px solid rgba(42,157,143,0.3);
-    color: #2a9d8f;
-    margin-right: 0.4rem;
-    margin-bottom: 0.4rem;
-  }
-  .project-emoji { font-size: 3rem; }
-</style>
 </head>
 <body>
 
@@ -54,17 +18,20 @@
 
 <!-- ── TOP NAVIGATION ── -->
 <nav class="page-nav" aria-label="Page navigation">
-  <a href="index.html" class="nav-brand">Karan <span>Patel</span></a>
   <div class="nav-links">
     <a href="index.html"                          class="nav-btn home-btn"><i class="fas fa-home"></i> Home</a>
     <a href="index.html#Projects"                 class="nav-btn"><i class="fas fa-chevron-left"></i> Back to Projects</a>
     <a href="Data Analysis.html"                  class="nav-btn"><i class="fas fa-chevron-right"></i> Data Analysis</a>
-    <button id="theme-toggle" class="nav-btn theme-btn" title="Toggle light/dark" aria-label="Toggle theme">☀️</button>
+    < --- toggle light ----------------------------------------------------------------- >
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
+           <i class="fas fa-moon" id="themeIcon"></i>
+     </button>
+      < --- ----------------------------------------------------------------------- ----- >
   </div>
 </nav>
 
 <!-- ── MAIN ── -->
-<main class="page-main">
+<main class="slide-container" role="main">
 
   <!-- Hero -->
   <div class="page-hero fade-up fade-up-1">
