@@ -1783,3 +1783,20 @@ code {
   .stat-grid { grid-template-columns: 1fr 1fr; }
   .page-bottom-nav .nav-btn { padding: 7px 12px; font-size: 0.78rem; }
 }
+
+@media (max-width: 768px) {
+  section {
+    padding-bottom: 80px; /* account for bottom dot nav */
+  }
+}
+/* --------------------------------------------
+Fix stacking — sections must sit above reactive-bg 
+--------------------------------------------------- */
+section {
+  position: relative;
+  z-index: 1;
+}
+.slide-container {
+  position: relative;
+  z-index: 1;
+}
