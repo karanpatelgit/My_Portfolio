@@ -313,134 +313,18 @@
       </div>
     </div>
   </section>
+ </main><!-- /main -->
  
+<!-- AOS scroll animations -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>AOS.init({ once: true, duration: 700, easing: 'ease-out' });</script>
+ 
+<!-- All custom JS in its own file, loaded with defer so it runs after DOM is ready -->
+<script src="Js/reactive-bg.js" defer></script>
+</main>
 </main>
  
-<script>
-/* ── Reactive background + nav tracker ── */
-(function () {
-  let mouseX = window.innerWidth / 2;
-  let mouseY = window.innerHeight / 2;
- 
-  const reactiveContainer = document.createElement('div');
-  reactiveContainer.classList.add('reactive-bg');
-  document.body.insertBefore(reactiveContainer, document.body.firstChild);
- 
-  const mathSymbols  = ['∫','∑','π','√','∞','∂','Δ','∇','±','≈','≠','≤','≥','×','÷','α','β','γ','δ','θ','λ','μ','σ','ω','φ','∈','∉','⊂','∪','∩'];
-  const mathFormulas = ['f(x)','e^x','log x','sin θ','cos θ','tan θ','x²','xⁿ','√x','∛x','lim','dy/dx','∫f(x)dx','Σxᵢ','∏xᵢ'];
-  const mathSmall    = ['x','y','z','n','i','j','k','a','b','c','r','t'];
-  const mathElements = [];
- 
-  function rand(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
-  const isMobile = window.matchMedia('(max-width: 768px)').matches;
-  const scale = isMobile ? 0.5 : 1;
- 
-  function spawnEl({ cls, text, vMax }) {
-    const el = document.createElement('div');
-    el.classList.add('math-element', cls);
-    el.textContent = text;
-    const x = Math.random() * window.innerWidth;
-    const y = Math.random() * window.innerHeight;
-    el.style.left = x + 'px';
-    el.style.top  = y + 'px';
-    reactiveContainer.appendChild(el);
-    mathElements.push({ element: el, x, y, vx: (Math.random() - 0.5) * vMax, vy: (Math.random() - 0.5) * vMax, rotation: Math.random() * 360, rotSpeed: (Math.random() - 0.5) * 1.5, maxSpeed: vMax });
-  }
- 
-  function createSineWave() {
-    const c   = document.createElement('div');
-    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    const path= document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    c.classList.add('sine-wave-container');
-    svg.setAttribute('width','200'); svg.setAttribute('height','80'); svg.setAttribute('viewBox','0 0 200 80');
-    const offset = Math.random() * Math.PI * 2;
-    let d = 'M 0 40';
-    for (let j = 0; j <= 200; j += 5) d += ` L ${j} ${40 + Math.sin(j * 0.05 + offset) * 25}`;
-    path.setAttribute('d', d); path.setAttribute('stroke','#e9c46a'); path.setAttribute('stroke-width','2'); path.setAttribute('fill','none'); path.setAttribute('opacity','0.6');
-    svg.appendChild(path); c.appendChild(svg);
-    const x = Math.random() * window.innerWidth;
-    const y = Math.random() * window.innerHeight;
-    c.style.left = x + 'px'; c.style.top = y + 'px';
-    reactiveContainer.appendChild(c);
-    mathElements.push({ element: c, x, y, vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5, rotation: 0, rotSpeed: 0, maxSpeed: 1.5, isChart: true });
-  }
- 
-  function init() {
-    const n = c => Math.round(c * scale);
-    for (let i = 0; i < n(15); i++) spawnEl({ cls: 'math-formula', text: rand(mathFormulas), vMax: 2.5 });
-    for (let i = 0; i < n(20); i++) spawnEl({ cls: 'math-symbol',  text: rand(mathSymbols),  vMax: 3 });
-    for (let i = 0; i < n(15); i++) spawnEl({ cls: 'math-small',   text: rand(mathSmall),    vMax: 1.8 });
-    for (let i = 0; i < n(8);  i++) createSineWave();
-  }
- 
-  function animate() {
-    for (const e of mathElements) {
-      const dx = mouseX - e.x, dy = mouseY - e.y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < 300) {
-        const angle = Math.atan2(dy, dx), force = (300 - dist) / 300;
-        e.vx -= Math.cos(angle) * force * 0.8;
-        e.vy -= Math.sin(angle) * force * 0.8;
-      } else {
-        e.vx += (Math.random() - 0.5) * 0.1;
-        e.vy += (Math.random() - 0.5) * 0.1;
-      }
-      e.x += e.vx; e.y += e.vy;
-      if (e.x < 0 || e.x > window.innerWidth)  e.vx *= -1;
-      if (e.y < 0 || e.y > window.innerHeight) e.vy *= -1;
-      e.x = Math.max(0, Math.min(window.innerWidth,  e.x));
-      e.y = Math.max(0, Math.min(window.innerHeight, e.y));
-      const spd = Math.sqrt(e.vx ** 2 + e.vy ** 2);
-      if (spd > e.maxSpeed) { e.vx = e.vx / spd * e.maxSpeed; e.vy = e.vy / spd * e.maxSpeed; }
-      e.vx *= 0.995; e.vy *= 0.995;
-      e.element.style.left = e.x + 'px';
-      e.element.style.top  = e.y + 'px';
-      if (!e.isChart) { e.rotation += e.rotSpeed; e.element.style.transform = `rotate(${e.rotation}deg)`; }
-    }
-    requestAnimationFrame(animate);
-  }
- 
-  document.addEventListener('mousemove', ev => {
-    mouseX = ev.clientX; mouseY = ev.clientY;
-    const gx = (mouseX / window.innerWidth)  * 100;
-    const gy = (mouseY / window.innerHeight) * 100;
-    reactiveContainer.style.background = `radial-gradient(circle at ${gx}% ${gy}%, rgba(42,157,143,0.4) 0%, rgba(38,70,83,0.8) 50%, #264653 100%), linear-gradient(135deg,#264653,#2a9d8f)`;
-  });
- 
-  /* Nav cursor tracker */
-  const tracker = document.querySelector('.menu-tracker');
-  const navDots  = document.querySelector('.nav-dots');
-  const dots     = document.querySelectorAll('.dot');
-  if (tracker && navDots) {
-    document.addEventListener('mousemove', ev => {
-      const r = navDots.getBoundingClientRect();
-      if (ev.clientX >= r.left && ev.clientX <= r.right && ev.clientY >= r.top && ev.clientY <= r.bottom) {
-        tracker.style.left = ev.clientX + 'px';
-        tracker.style.top  = (ev.clientY - 30) + 'px';
-      }
-    });
-    dots.forEach(d => {
-      d.addEventListener('mouseenter', () => { tracker.textContent = d.getAttribute('data-label'); tracker.classList.add('active'); });
-      d.addEventListener('mouseleave', () => tracker.classList.remove('active'));
-    });
-    navDots.addEventListener('mouseleave', () => tracker.classList.remove('active'));
-  }
- 
-  /* Theme toggle (reuses same button from styles) */
-  const themeBtn  = document.getElementById('themeToggle');
-  const themeIcon = document.getElementById('themeIcon');
-  if (localStorage.getItem('theme') === 'light') { document.body.classList.add('light-mode'); if (themeIcon) themeIcon.className = 'fas fa-sun'; }
-  if (themeBtn) themeBtn.addEventListener('click', () => {
-    document.body.classList.toggle('light-mode');
-    const isLight = document.body.classList.contains('light-mode');
-    if (themeIcon) themeIcon.className = isLight ? 'fas fa-sun' : 'fas fa-moon';
-    localStorage.setItem('theme', isLight ? 'light' : 'dark');
-  });
- 
-  init();
-  animate();
-}());
-</script>
- <script src="Js/reactive-bg.js" defer></script>
+
+   
 </body>
 </html>
