@@ -1,45 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Karan Patel — Coding & Automation Projects">
-<title>Coding &amp; Automations | Karan Patel</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-<link rel="stylesheet" href="style/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Karan Patel — Coding &amp; Automation Projects">
+  <title>Coding &amp; Automations | Karan Patel</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="style/styles.css">
 </head>
 <body>
 
-<!-- Reactive Background -->
 <div id="reactive-bg"></div>
 
-<!-- ── TOP NAVIGATION ── -->
 <nav class="page-nav" aria-label="Page navigation">
+  <a href="index.html" class="nav-brand">Karan <span>Patel</span></a>
   <div class="nav-links">
-    <a href="index.html"                          class="nav-btn home-btn"><i class="fas fa-home"></i> Home</a>
-    <a href="index.html#Projects"                 class="nav-btn"><i class="fas fa-chevron-left"></i> Back to Projects</a>
-    <a href="Data Analysis.html"                  class="nav-btn"><i class="fas fa-chevron-right"></i> Data Analysis</a>
-    <! --- toggle light ----------------------------------------------------------------- >
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
-           <i class="fas fa-moon" id="themeIcon"></i>
-     </button>
-      <! --- ----------------------------------------------------------------------- ----- >
+    <a href="index.html"          class="nav-btn home-btn"><i class="fas fa-home"></i> Home</a>
+    <a href="index.html#Projects" class="nav-btn"><i class="fas fa-chevron-left"></i> Projects</a>
+    <a href="data_analysis.html"  class="nav-btn"><i class="fas fa-chevron-right"></i> Data Analysis</a>
+    <button id="themeToggle" class="nav-btn theme-btn" aria-label="Toggle dark/light mode">
+      <i class="fas fa-moon" id="themeIcon"></i>
+    </button>
   </div>
 </nav>
 
-<!-- ── MAIN ── -->
-<main class="slide-container" role="main">
+<main class="page-main" role="main">
 
   <!-- Hero -->
   <div class="page-hero fade-up fade-up-1">
-    <span class="tag">📂 Portfolio &rsaquo; Projects</span>
+    <span class="tag">📂 Portfolio › Projects</span>
     <h1>Coding &amp; <em>Automation</em> Projects</h1>
     <p>Python scripts, automation workflows, GitHub projects and web tools built during coursework and self-driven learning.</p>
     <div class="hero-divider"></div>
-    <div class="skill-pills" style="justify-content:center;">
+    <div class="skill-pills">
       <span class="pill teal"><i class="fab fa-python"></i> Python</span>
       <span class="pill teal"><i class="fab fa-js"></i> JavaScript</span>
       <span class="pill teal"><i class="fab fa-github"></i> GitHub</span>
@@ -59,18 +56,16 @@
     </div>
   </div>
 
-  <!-- Projects Grid -->
+  <!-- Featured Projects -->
   <div class="section fade-up fade-up-2">
     <div class="section-title">Featured Projects</div>
     <p class="section-sub">Hands-on builds across automation, scripting and web development.</p>
     <div class="card-grid">
 
       <div class="project-card">
-        <div class="card-img">
-          <span class="project-emoji">🐍</span>
-        </div>
+        <div class="card-img"><span class="project-emoji">🐍</span></div>
+        <span class="card-tag">Python</span>
         <div class="card-body">
-          <span class="card-tag">Python</span>
           <h3>File Organiser Automation</h3>
           <p>Python script that auto-sorts files in a downloads folder by type (PDF, images, videos, code) using <code>os</code> and <code>shutil</code> — runs on schedule via Task Scheduler.</p>
           <div class="skill-pills">
@@ -80,16 +75,14 @@
           </div>
         </div>
         <div class="card-footer">
-          <a href="https://github.com/karanpatelgit" target="_blank" class="btn btn-primary">GitHub <i class="fas fa-external-link-alt"></i></a>
+          <a href="https://github.com/karanpatelgit" target="_blank" rel="noopener" class="btn btn-primary">GitHub <i class="fas fa-external-link-alt"></i></a>
         </div>
       </div>
 
       <div class="project-card">
-        <div class="card-img">
-          <span class="project-emoji">📧</span>
-        </div>
+        <div class="card-img"><span class="project-emoji">📧</span></div>
+        <span class="card-tag">Automation</span>
         <div class="card-body">
-          <span class="card-tag">Automation</span>
           <h3>Email / WhatsApp Notifier</h3>
           <p>Automated reminder bot that sends personalised messages at scheduled times — useful for exam reminders, study schedules and event alerts.</p>
           <div class="skill-pills">
@@ -99,18 +92,16 @@
           </div>
         </div>
         <div class="card-footer">
-          <a href="https://github.com/karanpatelgit" target="_blank" class="btn btn-primary">GitHub <i class="fas fa-external-link-alt"></i></a>
+          <a href="https://github.com/karanpatelgit" target="_blank" rel="noopener" class="btn btn-primary">GitHub <i class="fas fa-external-link-alt"></i></a>
         </div>
       </div>
 
       <div class="project-card">
-        <div class="card-img">
-          <span class="project-emoji">🌐</span>
-        </div>
+        <div class="card-img"><span class="project-emoji">🌐</span></div>
+        <span class="card-tag">Web Scraping</span>
         <div class="card-body">
-          <span class="card-tag">Web Scraping</span>
           <h3>News &amp; Data Scraper</h3>
-          <p>Scrapes headlines from news websites and exports them to CSV / sends a daily at Telegram — built using BeautifulSoup and requests.</p>
+          <p>Scrapes headlines from news websites and exports them to CSV / sends a daily digest to Telegram — built using BeautifulSoup and requests.</p>
           <div class="skill-pills">
             <span class="pill teal">Python</span>
             <span class="pill">BeautifulSoup</span>
@@ -119,16 +110,14 @@
           </div>
         </div>
         <div class="card-footer">
-          <a href="https://github.com/karanpatelgit" target="_blank" class="btn btn-primary">GitHub <i class="fas fa-external-link-alt"></i></a>
+          <a href="https://github.com/karanpatelgit" target="_blank" rel="noopener" class="btn btn-primary">GitHub <i class="fas fa-external-link-alt"></i></a>
         </div>
       </div>
 
       <div class="project-card">
-        <div class="card-img">
-          <span class="project-emoji">🧮</span>
-        </div>
+        <div class="card-img"><span class="project-emoji">🧮</span></div>
+        <span class="card-tag">Mathematics + Code</span>
         <div class="card-body">
-          <span class="card-tag">Mathematics + Code</span>
           <h3>Calculus Solver CLI</h3>
           <p>Command-line tool that solves differentiation and integration problems step-by-step using <code>sympy</code> — designed for students learning calculus.</p>
           <div class="skill-pills">
@@ -138,18 +127,16 @@
           </div>
         </div>
         <div class="card-footer">
-          <a href="https://github.com/karanpatelgit" target="_blank" class="btn btn-primary">GitHub <i class="fas fa-external-link-alt"></i></a>
+          <a href="https://github.com/karanpatelgit" target="_blank" rel="noopener" class="btn btn-primary">GitHub <i class="fas fa-external-link-alt"></i></a>
         </div>
       </div>
 
       <div class="project-card">
-        <div class="card-img">
-          <span class="project-emoji">📊</span>
-        </div>
+        <div class="card-img"><span class="project-emoji">📊</span></div>
+        <span class="card-tag">Portfolio Project</span>
         <div class="card-body">
-          <span class="card-tag">Portfolio Project</span>
           <h3>This Portfolio Website</h3>
-          <p>Built from scratch using HTML, CSS and vanilla JavaScript with reactive animations, AOS scroll effects, dark/light theme, and fully responsive layout.</p>
+          <p>Built from scratch using HTML, CSS and vanilla JavaScript with reactive animations, dark/light theme, and a fully responsive layout.</p>
           <div class="skill-pills">
             <span class="pill teal">HTML</span>
             <span class="pill teal">CSS</span>
@@ -158,18 +145,16 @@
           </div>
         </div>
         <div class="card-footer">
-          <a href="https://github.com/karanpatelgit/My_Portfolio" target="_blank" class="btn btn-primary">GitHub <i class="fas fa-external-link-alt"></i></a>
+          <a href="https://github.com/karanpatelgit/My_Portfolio" target="_blank" rel="noopener" class="btn btn-primary">GitHub <i class="fas fa-external-link-alt"></i></a>
         </div>
       </div>
 
       <div class="project-card">
-        <div class="card-img">
-          <span class="project-emoji">🤖</span>
-        </div>
+        <div class="card-img"><span class="project-emoji">🤖</span></div>
+        <span class="card-tag">AI / Chatbot</span>
         <div class="card-body">
-          <span class="card-tag">AI / Chatbot</span>
           <h3>Study Buddy Chatbot</h3>
-          <p>A simple Q&A chatbot for math students — uses keyword matching and a curated knowledge base to answer common calculus and algebra questions.</p>
+          <p>A Q&amp;A chatbot for math students — uses keyword matching and a curated knowledge base to answer common calculus and algebra questions.</p>
           <div class="skill-pills">
             <span class="pill teal">Python</span>
             <span class="pill">NLP basics</span>
@@ -177,30 +162,30 @@
           </div>
         </div>
         <div class="card-footer">
-          <a href="https://github.com/karanpatelgit" target="_blank" class="btn btn-primary">GitHub <i class="fas fa-external-link-alt"></i></a>
+          <a href="https://github.com/karanpatelgit" target="_blank" rel="noopener" class="btn btn-primary">GitHub <i class="fas fa-external-link-alt"></i></a>
         </div>
       </div>
 
     </div>
   </div>
 
-  <!-- Code Sample -->
+  <!-- Code Snapshot -->
   <div class="section fade-up fade-up-3">
     <div class="section-title">Code Snapshot</div>
     <p class="section-sub">A peek at the file organiser script logic.</p>
     <div class="card">
-      <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.5rem;">
+      <div class="skill-pills">
         <span class="lang-badge">Python 3.x</span>
         <span class="lang-badge">os &amp; shutil</span>
       </div>
-      <div class="code-block">import os, shutil
+      <pre class="code-block">import os, shutil
 
 FOLDER_RULES = {
-    "PDFs":    [".pdf"],
-    "Images":  [".jpg", ".jpeg", ".png", ".gif", ".webp"],
-    "Videos":  [".mp4", ".mkv", ".avi"],
-    "Code":    [".py", ".js", ".html", ".css", ".java"],
-    "Docs":    [".docx", ".xlsx", ".pptx", ".txt"],
+    "PDFs":   [".pdf"],
+    "Images": [".jpg", ".jpeg", ".png", ".gif", ".webp"],
+    "Videos": [".mp4", ".mkv", ".avi"],
+    "Code":   [".py", ".js", ".html", ".css", ".java"],
+    "Docs":   [".docx", ".xlsx", ".pptx", ".txt"],
 }
 
 def organise(path):
@@ -214,11 +199,11 @@ def organise(path):
                     shutil.move(os.path.join(path, file), dest)
                     break
 
-organise(r"C:\Users\Karan\Downloads")</div>
+organise(r"C:\Users\Karan\Downloads")</pre>
     </div>
   </div>
 
-  <!-- Skills & Tools -->
+  <!-- Tools & Technologies -->
   <div class="section fade-up fade-up-3">
     <div class="section-title">Tools &amp; Technologies</div>
     <p class="section-sub">Languages, libraries and platforms used across projects.</p>
@@ -273,22 +258,22 @@ organise(r"C:\Users\Karan\Downloads")</div>
   <!-- Callout -->
   <div class="section fade-up fade-up-5">
     <div class="callout">
-      <strong>"Code is just math made executable."</strong> — Every script I write starts with a mathematical model; the code is simply the expression of that model in a language computers can run.
+      <strong>"Code is just math made executable."</strong>
+      Every script I write starts with a mathematical model; the code is simply the expression of that model in a language computers can run.
     </div>
   </div>
 
-  <!-- Bottom Navigation -->
+  <!-- Bottom Nav -->
   <div class="page-bottom-nav">
-    <a href="index.html"         class="nav-btn home-btn"><i class="fas fa-home"></i> Home</a>
-    <a href="index.html#Projects" class="nav-btn"><i class="fas fa-chevron-left"></i> Back to Projects</a>
-    <a href="Data Analysis.html"  class="nav-btn"><i class="fas fa-chevron-right"></i> Next: Data Analysis</a>
+    <a href="index.html"          class="nav-btn home-btn"><i class="fas fa-home"></i> Home</a>
+    <a href="index.html#Projects" class="nav-btn"><i class="fas fa-chevron-left"></i> Projects</a>
+    <a href="data_analysis.html"  class="nav-btn"><i class="fas fa-chevron-right"></i> Data Analysis</a>
   </div>
 
 </main>
 
-<!-- Footer -->
 <footer class="page-footer">
-  <p>© 2025 <a href="index.html">Karan Patel</a> · <a href="mailto:karan.patel.workon@gmail.com">karan.patel.workon@gmail.com</a> · <a href="https://github.com/karanpatelgit" target="_blank">GitHub</a></p>
+  <p>© 2025 <a href="index.html">Karan Patel</a> · <a href="mailto:karan.patel.workon@gmail.com">karan.patel.workon@gmail.com</a> · <a href="https://github.com/karanpatelgit" target="_blank" rel="noopener">GitHub</a></p>
 </footer>
 
 <script src="Js/reactive-bg.js"></script>
