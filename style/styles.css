@@ -210,8 +210,8 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   cursor: pointer;
   text-decoration: none;
 }
@@ -225,18 +225,6 @@ header {
   background: rgba(255,255,255,0.22);
   transition: all var(--transition);
   flex-shrink: 0;
-}
-
-/* connector line between dots */
-.dot:not(:last-child)::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 1px;
-  height: 8px;
-  background: rgba(255,255,255,0.1);
 }
 
 .dot:hover::before,
@@ -290,7 +278,7 @@ header {
   pointer-events: none;
   opacity: 0;
   transform: translateX(-50%);
-  transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease, left 0.08s ease, top 0.08s ease;
   white-space: nowrap;
   z-index: 300;
 }
@@ -1700,7 +1688,11 @@ code {
     gap: 4px;
   }
 
-  header { top: auto; bottom: 0; right: auto; left: 0; width: 100%; }
+  header {
+  position: fixed;
+  z-index: 200;
+  
+   }
 
   /* Dot connector lines hide on horizontal */
   .dot:not(:last-child)::after { display: none; }
