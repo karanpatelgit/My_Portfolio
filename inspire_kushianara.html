@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Inspire Kushinara — Educational Initiative by Karan Patel">
+<title>Inspire Kushinara | Karan Patel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="stylesheet" href="page-theme.css">
+<style>
+  .mission-card {
+    background: linear-gradient(135deg, rgba(42,157,143,0.12), rgba(233,196,106,0.06));
+    border: 1px solid rgba(42,157,143,0.3);
+    border-radius: var(--radius);
+    padding: 2rem;
+    text-align: center;
+  }
+  .mission-card .big-icon {
+    font-size: 3.5rem;
+    display: block;
+    margin-bottom: 1rem;
+  }
+  .mission-card h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.5rem;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+  .mission-card p { color: var(--text-muted); line-height: 1.8; }
+
+  .domain-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    transition: all 0.25s;
+  }
+  .domain-card:hover {
+    border-color: var(--accent);
+    transform: translateX(4px);
+  }
+  .domain-card .icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(233,196,106,0.1);
+    border-radius: 10px;
+  }
+  .domain-card h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+    color: var(--text);
+  }
+  .domain-card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+
+  .highlight-strip {
+    background: linear-gradient(135deg, var(--primary), #1a8a7d);
+    border-radius: var(--radius);
+    padding: 2rem;
+    text-align: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+  .highlight-strip::before {
+    content: '📚';
+    position: absolute;
+    font-size: 8rem;
+    opacity: 0.06;
+    right: -20px;
+    bottom: -20px;
+    pointer-events: none;
+  }
+  .highlight-strip h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+  .highlight-strip p  { opacity: 0.9; font-size: 0.9rem; line-height: 1.7; }
+</style>
+</head>
+<body>
+
+<div id="reactive-bg"></div>
+
+<!-- ── TOP NAVIGATION ── -->
+<nav class="page-nav" aria-label="Page navigation">
+  <a href="index.html" class="nav-brand">Karan <span>Patel</span></a>
+  <div class="nav-links">
+    <a href="index.html"                       class="nav-btn home-btn"><i class="fas fa-home"></i> Home</a>
+    <a href="Data Analysis.html"               class="nav-btn"><i class="fas fa-chevron-left"></i> Data Analysis</a>
+    <a href="Karan Patel Kushinagar News.html"  class="nav-btn"><i class="fas fa-chevron-right"></i> KP News</a>
+    <button id="theme-toggle" class="nav-btn theme-btn" title="Toggle light/dark" aria-label="Toggle theme">☀️</button>
+  </div>
+</nav>
+
+<main class="page-main">
+
+  <!-- Hero -->
+  <div class="page-hero fade-up fade-up-1">
+    <span class="tag">🏫 Educational Initiative</span>
+    <h1><em>Inspire</em> Kushinara</h1>
+    <p>A vision to bridge the gap between rural communities and modern education — practical, affordable, and rooted in empathy.</p>
+    <div class="hero-divider"></div>
+    <div style="display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;margin-top:1rem;">
+      <a href="https://lynk.id/inspire_kuhinara" target="_blank" class="btn btn-gold">
+        <i class="fas fa-external-link-alt"></i> Visit Inspire Kushinara
+      </a>
+      <a href="https://wa.me/919453100702" target="_blank" class="btn btn-outline">
+        <i class="fab fa-whatsapp"></i> Contact Us
+      </a>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="section fade-up fade-up-2">
+    <div class="stat-grid">
+      <div class="stat-box"><span class="num">🌱</span><span class="lbl">Growing Initiative</span></div>
+      <div class="stat-box"><span class="num">Rural</span><span class="lbl">Focus Area</span></div>
+      <div class="stat-box"><span class="num">Free</span><span class="lbl">Basic Access</span></div>
+      <div class="stat-box"><span class="num">2024</span><span class="lbl">Founded</span></div>
+    </div>
+  </div>
+
+  <!-- Mission & Vision -->
+  <div class="section fade-up fade-up-2">
+    <div class="section-title">Mission &amp; Vision</div>
+    <p class="section-sub">What Inspire Kushinara stands for.</p>
+    <div class="card-grid-2">
+      <div class="mission-card">
+        <span class="big-icon">🎯</span>
+        <h2>Our Mission</h2>
+        <p>To provide rural learners — especially in Kushinagar and surrounding districts — access to quality, practical education in technology and mathematics, bridging the urban-rural digital divide.</p>
+      </div>
+      <div class="mission-card" style="background:linear-gradient(135deg,rgba(233,196,106,0.1),rgba(42,157,143,0.04));">
+        <span class="big-icon">🌟</span>
+        <h2>Our Vision</h2>
+        <p>A Kushinagar where every student, regardless of economic background, can access skill-based education that opens doors to careers in technology, data and modern professional fields.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Highlight Strip -->
+  <div class="section fade-up fade-up-2">
+    <div class="highlight-strip">
+      <h3>Filling the Gap Between Theory and Practice</h3>
+      <p>Most rural schools teach theory from textbooks. Inspire Kushinara adds the missing layer: hands-on, project-based learning that students can apply in the real world — even with basic devices and limited internet.</p>
+    </div>
+  </div>
+
+  <!-- What We Offer -->
+  <div class="section fade-up fade-up-3">
+    <div class="section-title">What We Offer</div>
+    <p class="section-sub">Domain-specific learning pathways designed for practical outcomes.</p>
+    <div style="display:flex;flex-direction:column;gap:1rem;">
+      <div class="domain-card">
+        <div class="icon">💻</div>
+        <div>
+          <h3>Basic Computer Skills</h3>
+          <p>MS Office, typing, email, internet safety and file management — essentials for entering today's workforce.</p>
+        </div>
+      </div>
+      <div class="domain-card">
+        <div class="icon">🐍</div>
+        <div>
+          <h3>Python Programming</h3>
+          <p>From variables to automation — beginner Python taught through real-world village-level problems like crop data and local business tracking.</p>
+        </div>
+      </div>
+      <div class="domain-card">
+        <div class="icon">📊</div>
+        <div>
+          <h3>Data &amp; Spreadsheet Literacy</h3>
+          <p>Excel, Google Sheets and basic data analysis for students who want to work in finance, government or business.</p>
+        </div>
+      </div>
+      <div class="domain-card">
+        <div class="icon">📐</div>
+        <div>
+          <h3>Mathematics Enrichment</h3>
+          <p>Going beyond the U.P. Board syllabus — helping students see the beauty and application of mathematics in daily life and careers.</p>
+        </div>
+      </div>
+      <div class="domain-card">
+        <div class="icon">🎨</div>
+        <div>
+          <h3>Graphic Design &amp; Content Creation</h3>
+          <p>Canva, social media content and basic video editing — empowering students to build digital presence and income.</p>
+        </div>
+      </div>
+      <div class="domain-card">
+        <div class="icon">🗣️</div>
+        <div>
+          <h3>Spoken English &amp; Communication</h3>
+          <p>Practical spoken English skills focused on interview readiness, workplace communication and confidence-building.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- How It Works -->
+  <div class="section fade-up fade-up-3">
+    <div class="section-title">How It Works</div>
+    <p class="section-sub">Simple, accessible, community-driven learning.</p>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-year">Step 1</div>
+        <div class="tl-title">Connect via WhatsApp or Lynk.id</div>
+        <div class="tl-desc">Students and parents reach us through social media or our Lynk page to enquire about programmes.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">Step 2</div>
+        <div class="tl-title">Free Orientation Session</div>
+        <div class="tl-desc">A free introductory session — online or in-person — to understand the student's goals and recommend a pathway.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">Step 3</div>
+        <div class="tl-title">Structured Learning Path</div>
+        <div class="tl-desc">Personalised modules delivered at the learner's pace, combining video content, live sessions and practice tasks.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">Step 4</div>
+        <div class="tl-title">Projects &amp; Portfolio</div>
+        <div class="tl-desc">Students complete real projects — not just theory — building a portfolio they can show employers or use in their community.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">Step 5</div>
+        <div class="tl-title">Community &amp; Mentorship</div>
+        <div class="tl-desc">Alumni and active students help each other — a peer-learning network rooted in Kushinagar values.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Values -->
+  <div class="section fade-up fade-up-4">
+    <div class="section-title">Our Core Values</div>
+    <p class="section-sub">Principles that guide every decision at Inspire Kushinara.</p>
+    <div class="card-grid">
+      <div class="card">
+        <div style="font-size:1.6rem;margin-bottom:0.5rem;">🤝</div>
+        <h3 style="font-size:0.95rem;font-weight:700;margin-bottom:0.4rem;">Empathy First</h3>
+        <p style="font-size:0.83rem;color:var(--text-muted);">Every student brings a different background. We teach with patience, without judgment.</p>
+      </div>
+      <div class="card">
+        <div style="font-size:1.6rem;margin-bottom:0.5rem;">🔓</div>
+        <h3 style="font-size:0.95rem;font-weight:700;margin-bottom:0.4rem;">Accessibility</h3>
+        <p style="font-size:0.83rem;color:var(--text-muted);">Basic education is free. Advanced programmes are priced for rural budgets.</p>
+      </div>
+      <div class="card">
+        <div style="font-size:1.6rem;margin-bottom:0.5rem;">🛠️</div>
+        <h3 style="font-size:0.95rem;font-weight:700;margin-bottom:0.4rem;">Practical Over Theoretical</h3>
+        <p style="font-size:0.83rem;color:var(--text-muted);">Skills that work in the real world, not just in exams.</p>
+      </div>
+      <div class="card">
+        <div style="font-size:1.6rem;margin-bottom:0.5rem;">🌱</div>
+        <h3 style="font-size:0.95rem;font-weight:700;margin-bottom:0.4rem;">Community Growth</h3>
+        <p style="font-size:0.83rem;color:var(--text-muted);">When one student grows, they lift others — we build a chain of impact.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact -->
+  <div class="section fade-up fade-up-4">
+    <div class="section-title">Get in Touch</div>
+    <p class="section-sub">Interested in enrolling, volunteering, or collaborating? Reach out.</p>
+    <div class="card" style="max-width:600px;margin:0 auto;">
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div style="display:flex;align-items:center;gap:0.75rem;">
+          <i class="fab fa-whatsapp" style="color:var(--primary);font-size:1.3rem;width:24px;"></i>
+          <a href="https://wa.me/919453100702" target="_blank" style="color:var(--text);text-decoration:none;">+91 94531 00702</a>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.75rem;">
+          <i class="fas fa-envelope" style="color:var(--accent);font-size:1.1rem;width:24px;"></i>
+          <a href="mailto:karan.patel.workon@gmail.com" style="color:var(--text);text-decoration:none;">karan.patel.workon@gmail.com</a>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.75rem;">
+          <i class="fas fa-link" style="color:var(--accent2);font-size:1.1rem;width:24px;"></i>
+          <a href="https://lynk.id/inspire_kuhinara" target="_blank" style="color:var(--text);text-decoration:none;">lynk.id/inspire_kuhinara</a>
+        </div>
+      </div>
+      <div class="social-row" style="margin-top:1.5rem;">
+        <a href="https://www.facebook.com/share/1E6qppoJPY/"         target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="https://youtube.com/@karan_patel_kushinagar"         target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="https://www.instagram.com/karan_patel_kushinagar?igsh=MWM0bnU5NXA3eTZxNw==" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.linkedin.com/in/karan-patel-b47298330"   target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Callout -->
+  <div class="section fade-up fade-up-5">
+    <div class="callout">
+      <strong>"Education is the most powerful weapon you can use to change the world."</strong> — Inspire Kushinara exists to put that weapon in the hands of every rural student who has been left behind by the system.
+    </div>
+  </div>
+
+  <!-- Bottom Nav -->
+  <div class="page-bottom-nav">
+    <a href="Data Analysis.html"              class="nav-btn"><i class="fas fa-chevron-left"></i> Data Analysis</a>
+    <a href="index.html"                      class="nav-btn home-btn"><i class="fas fa-home"></i> Home</a>
+    <a href="Karan Patel Kushinagar News.html" class="nav-btn"><i class="fas fa-chevron-right"></i> KP News</a>
+  </div>
+
+</main>
+
+<footer class="page-footer">
+  <p>© 2025 <a href="index.html">Karan Patel</a> · Inspire Kushinara · <a href="https://lynk.id/inspire_kuhinara" target="_blank">lynk.id/inspire_kuhinara</a></p>
+</footer>
+
+<script src="reactive-bg-shared.js"></script>
+</body>
+</html>
