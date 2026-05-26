@@ -4,319 +4,242 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Karan Patel — B.Sc. Mathematics (Hons.). Portfolio showcasing projects, resume, and contact.">
- 
-  <!-- Social sharing -->
-  <meta property="og:title"       content="Portfolio | Karan Patel">
-  <meta property="og:description" content="B.Sc. Mathematics (Hons.) student — aspiring educator, data analyst & social influencer.">
-  <meta property="og:type"        content="website">
-  <meta property="og:url"         content="https://karanpatelgit.github.io/My_Portfolio/">
-  <!-- Replace og:image below with an actual hosted screenshot -->
-  <meta property="og:image"       content="assets/image/og-preview.png">
- 
   <title>Portfolio | Karan Patel</title>
  
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
- 
-  <!-- Icons & animation library -->
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
- 
-  <!-- Portfolio styles -->
-  <link rel="stylesheet" href="style/styles.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
- 
 <body>
-<!-_==============================================
-  Theme switch button
-  ================================================-->
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
-           <i class="fas fa-moon" id="themeIcon"></i>
-     </button>
-<!-- ════════════════════════════════════════════
-     HEADER / NAV
-═════════════════════════════════════════════ -->
+ 
 <header>
-  <!-- Floating cursor label (JS) -->
   <div class="menu-tracker" aria-hidden="true"></div>
-  <nav class="nav-wrap" aria-label="Primary navigation">
-  <a href="#Home"     class="dot-wrap active" aria-label="Home">    <div class="dot"></div><span class="dot-label">Home</span></a>
-  <a href="#About"    class="dot-wrap" aria-label="About">   <div class="dot"></div><span class="dot-label">About</span></a>
-  <a href="#Journey"  class="dot-wrap" aria-label="Journey"> <div class="dot"></div><span class="dot-label">Journey</span></a>
-  <a href="#Projects" class="dot-wrap" aria-label="Projects"><div class="dot"></div><span class="dot-label">Projects</span></a>
-  <a href="#Resume"   class="dot-wrap" aria-label="Resume">  <div class="dot"></div><span class="dot-label">Resume</span></a>
-  <a href="#Feedback" class="dot-wrap" aria-label="Feedback"><div class="dot"></div><span class="dot-label">Feedback</span></a>
-</nav>
-  </div>
+  <nav class="nav-dots" role="navigation" aria-label="Primary navigation">
+    <a href="#Home"     class="dot" data-label="Home">Home</a>
+    <a href="#About"    class="dot" data-label="About">About</a>
+    <a href="#Journey"  class="dot" data-label="Journey">Journey</a>
+    <a href="#Projects" class="dot" data-label="Projects">Projects</a>
+    <a href="#Resume"   class="dot" data-label="Resume">Resume</a>
+    <a href="#Feedback" class="dot" data-label="Feedback">Feedback</a>
+  </nav>
 </header>
  
-<!-- ════════════════════════════════════════════
-     MAIN CONTENT
-═════════════════════════════════════════════ -->
 <main class="slide-container" role="main">
  
-  <!-- ── HOME ──────────────────────────────── -->
+  <!-- ── HOME ── -->
   <section id="Home" class="bg1" aria-labelledby="home-title">
- 
     <div class="hero-wrap">
-      <div class="orbit">
-                    <span class="icon html"><i class="fa-brands fa-html5"></i></span>
-                    <span class="icon unity"><i class="fa-brands fa-unity"></i></span>
-                    <span class="icon java"><i class="fa-brands fa-java"></i></span>
-                    <span class="icon C"><i class="fa-solid fa-c"></i></span>
-                    <span class="icon figma"><i class="fa-brands fa-figma"></i></span>
-                    <span class="icon js"><i class="fa-brands fa-js"></i></span>
-                    <span class="icon css"><i class="fa-brands fa-css3"></i></span>
-                </div>
       <div class="hero-image">
         <div class="avatar">
-            
-          <!--
-            Image files : assets/image/(image)
-          -->
-         <div class="orbital-ring">
-            <div class="orbit orbit-1"><div class="sym">π</div></div>
-            <div class="orbit orbit-2"><div class="sym">∑</div></div>
-            <div class="orbit orbit-3"><div class="sym">∞</div></div>
-            <div class="avatar-core">
-              <img src="assests/image/PROFILEPHOTO.jpg" alt="Karan Patel">
-  </div>
-</div>
+          <img src="Contents/PROFILEPHOTO.jpeg" alt="Karan Patel" title="Karan Patel">
         </div>
-        <!-- Decorative corner ornaments -->
-        <div class="frame-ornament top-left"     aria-hidden="true"></div>
-        <div class="frame-ornament top-right"    aria-hidden="true"></div>
-        <div class="frame-ornament bottom-left"  aria-hidden="true"></div>
-        <div class="frame-ornament bottom-right" aria-hidden="true"></div>
-        <!-- Sticker labels -->
-        <div class="sticker sticker-1" aria-hidden="true">Math</div>
-        <div class="sticker sticker-2" aria-hidden="true">π</div>
-        <div class="sticker sticker-3" aria-hidden="true">AI</div>
+        <div class="frame-ornament top-left"></div>
+        <div class="frame-ornament top-right"></div>
+        <div class="frame-ornament bottom-left"></div>
+        <div class="frame-ornament bottom-right"></div>
+        <div class="sticker sticker-1">Math</div>
+        <div class="sticker sticker-2">π</div>
+        <div class="sticker sticker-3">AI</div>
       </div>
     </div>
  
     <h1 id="home-title" class="name reveal-text">Karan Patel</h1>
     <p class="subname reveal-text">B.Sc. Mathematics (Hons.) | Aspiring Educator &amp; Data Analyst | Social Influencer</p>
  
-    <!-- Social icons — aria-label on every link (fixes accessibility bug) -->
-    <div class="social-icons" aria-label="Social media links">
-      <a href="https://www.linkedin.com/in/karan-patel-b47298330" target="_blank" rel="noopener" aria-label="LinkedIn">
-        <i class="fab fa-linkedin" aria-hidden="true"></i>
-      </a>
-      <a href="https://youtube.com/@karan_patel_kushinagar" target="_blank" rel="noopener" aria-label="YouTube">
-        <i class="fab fa-youtube" aria-hidden="true"></i>
-      </a>
-      <a href="https://www.facebook.com/share/1E6qppoJPY/" target="_blank" rel="noopener" aria-label="Facebook">
-        <i class="fab fa-facebook" aria-hidden="true"></i>
-      </a>
-      <a href="https://www.instagram.com/karan_patel_kushinagar" target="_blank" rel="noopener" aria-label="Instagram">
-        <i class="fab fa-instagram" aria-hidden="true"></i>
-      </a>
-      <a href="https://github.com/karanpatelgit" target="_blank" rel="noopener" aria-label="GitHub">
-        <i class="fab fa-github" aria-hidden="true"></i>
-      </a>
+    <div class="social-icons">
+      <a href="https://www.linkedin.com/in/karan-patel-b47298330" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      <a href="https://youtube.com/@karan_patel_kushinagar"        target="_blank" rel="noopener" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      <a href="https://www.facebook.com/share/1E6qppoJPY/"         target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+      <a href="https://www.instagram.com/karan_patel_kushinagar?igsh=MWM0bnU5NXA3eTZxNw==" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://github.com/karanpatelgit"                   target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
     </div>
  
     <a href="#About" class="btn">Explore My Work</a>
   </section>
  
- 
-  <!-- ── ABOUT ──────────────────────────────── -->
+  <!-- ── ABOUT ── -->
   <section id="About" class="bg2" aria-labelledby="about-title">
  
     <div class="card">
-      <!-- FIX: was duplicate id="about-title"; second heading gets unique id -->
       <h2 id="about-title">About Me</h2>
-      <!-- FIX: was </div>p> broken tag; also fixed typo "lerning" → "learning", "persuing" → "pursuing" -->
       <p>
-        Hi! I'm pursuing B.Sc. (Hons.) Mathematics with a minor in Computer Science,
-        learning tech skills to become a versatile educator and data analyst. With a
-        strong foundation in mathematical concepts and a passion for teaching, I'm
-        dedicated to making complex ideas accessible and engaging. I'm also developing
-        skills in data analysis, visualisation, and programming to leverage data-driven
-        insights for impactful decision-making.
+        Hi! I'm pursuing B.Sc. (Hons.) Mathematics with a Minor in Computer Science, learning tech skills
+        to become a versatile educator and data analyst. With a strong foundation in mathematical concepts
+        and a passion for teaching, I'm dedicated to making complex ideas accessible and engaging for all
+        learners. I'm also developing my skills in data analysis, visualization and programming to leverage
+        data-driven insights for impactful decision-making.
       </p>
-      <p>I believe in learning with discipline, teaching with empathy, and building skills with consistency.</p>
+      <p>
+        I believe in learning with discipline, teaching with empathy, and building skills with consistency.
+      </p>
     </div>
  
     <div class="card">
-      <h2 id="values-title">Values &amp; Expertise</h2>
+      <h2>Values &amp; Expertise</h2>
       <p>I believe in consistency, conceptual clarity and ethical learning — building foundations through mathematics and data.</p>
  
-      <!-- role="list" + role="listitem" replaces incorrect role="article" -->
-      <ul class="grid" role="list">
- 
-        <li class="grid-item" role="listitem">
-          <div class="icon" aria-hidden="true"><i class="fas fa-square-root-alt"></i></div>
+      <div class="grid">
+        <div class="grid-item" role="article">
+          <div class="icon"><i class="fas fa-square-root-alt"></i></div>
           <div class="content">
             <div class="title">Mathematics</div>
             <div class="desc">Mathematical reasoning, problem solving and proofs.</div>
           </div>
-        </li>
- 
-        <li class="grid-item" role="listitem">
-          <div class="icon" aria-hidden="true"><i class="fas fa-chart-line"></i></div>
+        </div>
+        <div class="grid-item" role="article">
+          <div class="icon"><i class="fas fa-chart-line"></i></div>
           <div class="content">
             <div class="title">Data Analysis</div>
             <div class="desc">Python, Tableau, Power BI and LaTeX for reproducible analysis.</div>
           </div>
-        </li>
- 
-        <li class="grid-item" role="listitem">
-          <div class="icon" aria-hidden="true"><i class="fas fa-chalkboard-teacher"></i></div>
+        </div>
+        <div class="grid-item" role="article">
+          <div class="icon"><i class="fas fa-chalkboard-teacher"></i></div>
           <div class="content">
             <div class="title">Teaching</div>
             <div class="desc">Mentoring students with clear explanations and supportive guidance.</div>
           </div>
-        </li>
- 
-        <li class="grid-item" role="listitem">
-          <div class="icon" aria-hidden="true"><i class="fas fa-flask"></i></div>
+        </div>
+        <div class="grid-item" role="article">
+          <div class="icon"><i class="fas fa-flask"></i></div>
           <div class="content">
             <div class="title">Research &amp; Volunteering</div>
-            <div class="desc">Conducting math research and volunteering under the ULLAS scheme.</div>
+            <div class="desc">Conducting math research and volunteering under the ULLAS scheme to support education initiatives.</div>
           </div>
-        </li>
- 
-        <li class="grid-item" role="listitem">
-          <div class="icon" aria-hidden="true"><i class="fab fa-facebook-f"></i></div>
+        </div>
+        <div class="grid-item" role="article">
+          <div class="icon"><i class="fab fa-facebook-f"></i></div>
           <div class="content">
             <div class="title">Social Impact</div>
-            <div class="desc">5k+ followers on Facebook; building influence to benefit society.</div>
+            <div class="desc">5k+ followers on Facebook; building influence across platforms to benefit society.</div>
           </div>
-        </li>
- 
-        <li class="grid-item" role="listitem">
-          <div class="icon" aria-hidden="true"><i class="fas fa-paint-brush"></i></div>
+        </div>
+        <div class="grid-item" role="article">
+          <div class="icon"><i class="fas fa-paint-brush"></i></div>
           <div class="content">
             <div class="title">Creative</div>
             <div class="desc">Graphic design, visual storytelling and video editing.</div>
           </div>
-        </li>
- 
-      </ul>
+        </div>
+      </div>
     </div>
+ 
   </section>
  
- 
-  <!-- ── JOURNEY ────────────────────────────── -->
+  <!-- ── JOURNEY ── -->
   <section id="Journey" class="bg3" aria-labelledby="journey-title">
     <div class="card card--timeline">
       <h2 id="journey-title" class="muted-title">My Journey</h2>
  
-      <ol class="timeline" role="list" aria-label="Career timeline">
+      <div class="timeline" role="list" aria-label="Career timeline">
  
-        <li class="timeline-item" role="listitem" style="--i:-1">
+        <div class="timeline-item" role="listitem" style="--i:-1">
           <div class="year">Aug 2025</div>
           <div class="card card--featured">
-            <h3><i class="fas fa-laptop-code" aria-hidden="true"></i> 'O'-Level "IT"</h3>
+            <h3><i class="fas fa-laptop-code" aria-hidden="true"></i> 'O'-Level IT</h3>
             <p>Grade B — NIELIT, South West Delhi</p>
           </div>
-        </li>
+        </div>
  
-        <li class="timeline-item" role="listitem" style="--i:0">
+        <div class="timeline-item" role="listitem" style="--i:0">
           <div class="year">2024 – Ongoing</div>
           <div class="card card--featured">
             <h3><i class="fas fa-university" aria-hidden="true"></i> University of Delhi</h3>
             <p>B.Sc. Mathematics (Hons.)</p>
           </div>
-        </li>
+        </div>
  
-        <li class="timeline-item" role="listitem" style="--i:1">
+        <div class="timeline-item" role="listitem" style="--i:1">
           <div class="year">2024 – Ongoing</div>
           <div class="card card--featured">
             <h3><i class="fas fa-pen-nib" aria-hidden="true"></i> Canva Designer</h3>
             <p>College Mathematics Society 'Quaternion-ARSD' — visual &amp; promotional design</p>
           </div>
-        </li>
+        </div>
  
-        <li class="timeline-item" role="listitem" style="--i:2">
+        <div class="timeline-item" role="listitem" style="--i:2">
           <div class="year">May 2024</div>
           <div class="card card--featured">
-            <h3><i class="fas fa-desktop" aria-hidden="true"></i> Course on Computer Concepts (CCC)</h3>
+            <h3><i class="fas fa-certificate" aria-hidden="true"></i> Course on Computer Concepts (CCC)</h3>
             <p>Grade B — NIELIT, South West Delhi</p>
           </div>
-        </li>
+        </div>
  
-        <li class="timeline-item" role="listitem" style="--i:3">
+        <div class="timeline-item" role="listitem" style="--i:3">
           <div class="year">2023 – Ongoing</div>
           <div class="card card--featured">
             <h3><i class="fas fa-hands-helping" aria-hidden="true"></i> Volunteer</h3>
             <p>ULLAS Scheme (Govt. of India) — educational outreach</p>
           </div>
-        </li>
+        </div>
  
-        <li class="timeline-item" role="listitem" style="--i:4">
+        <div class="timeline-item" role="listitem" style="--i:4">
           <div class="year">2022 – 23</div>
           <div class="card card--featured">
-            <h3><i class="fas fa-graduation-cap" aria-hidden="true"></i> Intermediate (Grade 12)</h3>
-            <p>84% — U.P. Board, distinction in PCM and Hindi</p>
+            <h3><i class="fas fa-school" aria-hidden="true"></i> Intermediate (Grade 12)</h3>
+            <p>84% — U.P. Board, with distinction in PCM and Hindi</p>
           </div>
-        </li>
+        </div>
  
-        <li class="timeline-item" role="listitem" style="--i:5">
+        <div class="timeline-item" role="listitem" style="--i:5">
           <div class="year">2020 – 21</div>
           <div class="card card--featured">
-            <h3><i class="fas fa-school" aria-hidden="true"></i> High School (Grade 10)</h3>
-            <p>83.5% — U.P. Board, distinction in all subjects</p>
+            <h3><i class="fas fa-graduation-cap" aria-hidden="true"></i> High School (Grade 10)</h3>
+            <p>83.5% — U.P. Board, with distinction in all subjects</p>
           </div>
-        </li>
+        </div>
  
-      </ol>
+      </div>
     </div>
   </section>
  
- 
-  <!-- ── PROJECTS ───────────────────────────── -->
+  <!-- ── PROJECTS ── -->
   <section id="Projects" class="bg4" aria-labelledby="projects-title">
     <div class="card">
       <h2 id="projects-title">Projects</h2>
-      <p>A few representative projects built during my studies and freelance work. Click each card to learn more.</p>
+      <p>A few representative projects built during my studies and self-driven learning. Click each card to learn more.</p>
  
       <div class="card-grid card-grid--2col">
  
         <div class="card card--project card--elevated">
-          <div class="card--project__image" style="background-image: url('assests/image/Coding.jpg');" role="img" aria-label="Calculus notes preview"></div>
-          <span class="card--project__tag">Coding And Automations </span>
-          <h3 class="card--project__title">Github /Web/App Projects </h3>
-          <p class="card--project__description">Daily Life Planner ,News Automation, LifeOs Bot etc. Which are reflecting my problem  solving skills and programming skills.Presenting my skills and Creativity combined lead to a real life project.  </p>
+          <div class="card--project__image" style="background:url('calculus.jfif') center/cover no-repeat;"></div>
+          <span class="card--project__tag">Mathematics</span>
+          <h3 class="card--project__title">Calculus Notes</h3>
+          <p class="card--project__description">Comprehensive notes &amp; problem sets covering single-variable calculus, with LaTeX-formatted proofs and interactive examples.</p>
           <div class="card__footer">
-            <!-- TODO: replace # with the actual link when ready -->
-            <a href="Coding_and_automations.html" class="btn" aria-label="View Automation Projects">View Details</a>
+            <a href="data_analysis.html" class="btn">View Details</a>
           </div>
         </div>
  
         <div class="card card--project card--elevated">
-          
-          <div class="card--project__image" style="background-image: url('assests/image/sales_dashboard.jpg');" role="img" aria-label="Sales dashboard preview"></div>
+          <div class="card--project__image" style="background:url('sales dashboard.jfif') center/cover no-repeat;"></div>
           <span class="card--project__tag">Data Analysis</span>
           <h3 class="card--project__title">Sales Dashboard</h3>
-          <p class="card--project__description">Interactive dashboard built with Python and Tableau; provides sales trends, filters, and exportable reports for local retailers.</p>
+          <p class="card--project__description">Interactive dashboard built with Python and Tableau — sales trends, filters, and exportable reports used by local retailers.</p>
           <div class="card__footer">
-            <a href="data_analysis.html" class="btn" aria-label="View Sales Dashboard details">View Details</a>
+            <a href="data_analysis.html" class="btn">View Details</a>
           </div>
         </div>
  
         <div class="card card--project card--elevated">
-          
-          <div class="card--project__image" style="background-image: url('assests/image/Inspire_Kushinara.jpg');" role="img" aria-label="Inspire Kushinara preview"></div>
+          <div class="card--project__image" style="background:url('Inspire Kushinara.PNG') center/cover no-repeat;"></div>
           <span class="card--project__tag">Inspire Kushinara</span>
           <h3 class="card--project__title">Building an Educational Institute</h3>
-          <p class="card--project__description">A personalised platform for rural people to connect with modern tech — bridging the gap between theoretical and practical education.</p>
+          <p class="card--project__description">A personalised platform for rural people to connect with the modern tech era — bridging the gap between theoretical and practical education.</p>
           <div class="card__footer">
-            <a href="inspire_kushinara.html" class="btn" target="_blank" rel="noopener" aria-label="Visit Inspire Kushinara">View Details</a>
+            <a href="inspire_kushinara.html" class="btn">View Details</a>
           </div>
         </div>
  
         <div class="card card--project card--elevated">
-          <div class="card--project__image" style="background-image: url('assests/image/design.jpg');" role="img" aria-label="Graphic design work preview"></div>
-          <span class="card--project__tag">Karan Patel Kushinagar News </span>
-          <h3 class="card--project__title">Facebook/Instagram/Youtube</h3>
-          <p class="card--project__description">A rising voice of Kushinagar district. Providing the local and worldwide news through social media platforms,make people aware about political events, education ,sports and world news. </p>
+          <div class="card--project__image" style="background:url('design.jfif') center/cover no-repeat;"></div>
+          <span class="card--project__tag">Graphics &amp; Content</span>
+          <h3 class="card--project__title">College Society Design Work</h3>
+          <p class="card--project__description">Led design of promotional creatives for the college society — posters, carousel posts, and campaign graphics in Canva, ensuring brand consistency.</p>
           <div class="card__footer">
-            <a href="kp_kushinagar_news.html" class="btn" aria-label="View Social Media Influence And Presence">View Details</a>
+            <a href="Coding_and_automations.html" class="btn">View Details</a>
           </div>
         </div>
  
@@ -324,98 +247,200 @@
     </div>
   </section>
  
- 
-  <!-- ── RESUME ─────────────────────────────── -->
+  <!-- ── RESUME ── -->
   <section id="Resume" class="bg2" aria-labelledby="resume-title">
     <div class="card">
       <h2 id="resume-title">Resume</h2>
-      <p>Preview my resume below, or download a copy.</p>
- 
+      <p>Preview of my resume. Use the download button if you want a copy.</p>
       <div class="resume-wrapper">
         <div class="resume-iframe-wrapper">
-          <!-- FIX: removed duplicate title attribute -->
           <iframe
             class="resume-iframe"
             src="https://drive.google.com/file/d/1dcjmtXexDGMnUQvaTmPpRZ_CmkykUxPs/preview"
             title="Karan Patel Resume"
-            allow="autoplay"
-            loading="lazy">
+            allow="autoplay">
           </iframe>
         </div>
- 
         <div class="resume-buttons">
-          <a href="https://drive.google.com/file/d/1dcjmtXexDGMnUQvaTmPpRZ_CmkykUxPs/view?usp=drive_link"
-             class="btn btn-secondary" target="_blank" rel="noopener">
-            Download Resume
-          </a>
-          <a href="https://wa.me/919453100702" target="_blank" rel="noopener" class="btn btn-primary">
-            Contact Me
-          </a>
+          <a href="https://drive.google.com/file/d/1dcjmtXexDGMnUQvaTmPpRZ_CmkykUxPs/view?usp=drive_link" class="btn btn-secondary" target="_blank" rel="noopener">Download Resume</a>
+          <a href="https://wa.me/919453100702" target="_blank" rel="noopener" class="btn btn-primary">Contact Me</a>
         </div>
       </div>
     </div>
   </section>
  
- 
-  <!-- ── FEEDBACK ───────────────────────────── -->
+  <!-- ── FEEDBACK ── -->
   <section id="Feedback" class="bg3" aria-labelledby="feedback-title">
     <div class="card card--dark">
       <h2 id="feedback-title">Feedback &amp; Support</h2>
-      <p>If you have feedback, found an issue, or need support, use the form below — I read every message.</p>
+      <p>If you have feedback, found an issue, or need support, please use the form below — I read every message.</p>
  
-      <!-- FIX: responsive wrapper replaces fixed width="600" attribute -->
       <div class="google-form-wrapper">
         <iframe
           src="https://docs.google.com/forms/d/e/1FAIpQLScbLkYVu2gYbGQuOl_mjyobZXM72hxW-9aX8EHGdshzbUrB7w/viewform?embedded=true"
-          title="Feedback form"
+          title="Feedback Form"
           frameborder="0"
           marginheight="0"
-          marginwidth="0"
-          loading="lazy">
+          marginwidth="0">
           Loading…
         </iframe>
       </div>
  
-      <!-- FIX: all inline styles moved to CSS -->
       <div class="feedback-meta">
-        <div class="meta-left">
-          <p class="muted">Prefer another way? Email <a href="mailto:karan.patel.workon@gmail.com">karan.patel.workon@gmail.com</a></p>
-        </div>
+        <p class="muted">Prefer email? <a href="mailto:karan.patel.workon@gmail.com">karan.patel.workon@gmail.com</a></p>
         <div class="meta-right">
-          <a href="https://www.linkedin.com/in/karan-patel-b47298330" target="_blank" rel="noopener" aria-label="LinkedIn" class="icon-link"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
-          <a href="https://youtube.com/@karan_patel_kushinagar"        target="_blank" rel="noopener" aria-label="YouTube"   class="icon-link"><i class="fab fa-youtube fa-lg"   aria-hidden="true"></i></a>
-          <a href="https://www.facebook.com/share/1E6qppoJPY/"         target="_blank" rel="noopener" aria-label="Facebook"  class="icon-link"><i class="fab fa-facebook fa-lg"  aria-hidden="true"></i></a>
-          <a href="https://www.instagram.com/karan_patel_kushinagar"   target="_blank" rel="noopener" aria-label="Instagram" class="icon-link"><i class="fab fa-instagram fa-lg" aria-hidden="true"></i></a>
-          <a href="https://github.com/karanpatelgit"                   target="_blank" rel="noopener" aria-label="GitHub"    class="icon-link"><i class="fab fa-github fa-lg"    aria-hidden="true"></i></a>
+          <a href="https://www.linkedin.com/in/karan-patel-b47298330" target="_blank" rel="noopener" aria-label="LinkedIn"  class="icon-link"><i class="fab fa-linkedin fa-lg"></i></a>
+          <a href="https://youtube.com/@karan_patel_kushinagar"        target="_blank" rel="noopener" aria-label="YouTube"   class="icon-link"><i class="fab fa-youtube fa-lg"></i></a>
+          <a href="https://www.facebook.com/share/1E6qppoJPY/"         target="_blank" rel="noopener" aria-label="Facebook"  class="icon-link"><i class="fab fa-facebook fa-lg"></i></a>
+          <a href="https://www.instagram.com/karan_patel_kushinagar?igsh=MWM0bnU5NXA3eTZxNw==" target="_blank" rel="noopener" aria-label="Instagram" class="icon-link"><i class="fab fa-instagram fa-lg"></i></a>
+          <a href="https://github.com/karanpatelgit"                   target="_blank" rel="noopener" aria-label="GitHub"    class="icon-link"><i class="fab fa-github fa-lg"></i></a>
         </div>
       </div>
  
-      <!-- Thank-you state (shown by JS after form submit) -->
       <div id="feedbackThanks" class="thank-you" hidden aria-live="polite">
         <div class="card--minimal">
-          <p><i class="fas fa-heart" aria-hidden="true" style="color:var(--primary);font-size:1.4rem;margin-right:8px"></i> <strong>Thank you!</strong></p>
-          <p>I've received your message — I'll get back to you soon. Feel free to connect on social media in the meantime.</p>
-          <p><strong>Email:</strong> <a href="mailto:karan.patel.workon@gmail.com">karan.patel.workon@gmail.com</a></p>
+          <i class="fas fa-heart" style="color:var(--accent);font-size:1.6rem;margin-right:8px"></i>
+          <strong>Thank you!</strong>
+          <p>I've received your message — I'll get back to you soon. Meanwhile, feel free to connect on social media.</p>
+          <p><strong>Email:</strong> karan.patel.workon@gmail.com</p>
           <p><strong>WhatsApp:</strong> +91 94531 00702</p>
-          <div class="btn-group thank-you">
+          <div class="resume-buttons" style="margin-top:10px;">
             <a href="https://www.linkedin.com/in/karan-patel-b47298330" target="_blank" rel="noopener" class="btn btn-secondary">LinkedIn</a>
-            <a href="mailto:karan.patel.workon@gmail.com"               class="btn">Send Email</a>
-            <a href="https://wa.me/919453100702"                        target="_blank" rel="noopener" class="btn">WhatsApp</a>
+            <a href="mailto:karan.patel.workon@gmail.com"                class="btn">Send Email</a>
+            <a href="https://wa.me/919453100702"                          target="_blank" rel="noopener" class="btn">WhatsApp</a>
           </div>
         </div>
       </div>
- 
     </div>
   </section>
  
-</main><!-- /main -->
+</main>
  
-<!-- AOS scroll animations -->
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>AOS.init({ once: true, duration: 700, easing: 'ease-out' });</script>
+<script>
+/* ── Reactive background + nav tracker ── */
+(function () {
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
  
-<!-- All custom JS in its own file, loaded with defer so it runs after DOM is ready -->
-<script src="Js/reactive-bg.js" defer></script>
+  const reactiveContainer = document.createElement('div');
+  reactiveContainer.classList.add('reactive-bg');
+  document.body.insertBefore(reactiveContainer, document.body.firstChild);
+ 
+  const mathSymbols  = ['∫','∑','π','√','∞','∂','Δ','∇','±','≈','≠','≤','≥','×','÷','α','β','γ','δ','θ','λ','μ','σ','ω','φ','∈','∉','⊂','∪','∩'];
+  const mathFormulas = ['f(x)','e^x','log x','sin θ','cos θ','tan θ','x²','xⁿ','√x','∛x','lim','dy/dx','∫f(x)dx','Σxᵢ','∏xᵢ'];
+  const mathSmall    = ['x','y','z','n','i','j','k','a','b','c','r','t'];
+  const mathElements = [];
+ 
+  function rand(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+  const isMobile = window.matchMedia('(max-width: 768px)').matches;
+  const scale = isMobile ? 0.5 : 1;
+ 
+  function spawnEl({ cls, text, vMax }) {
+    const el = document.createElement('div');
+    el.classList.add('math-element', cls);
+    el.textContent = text;
+    const x = Math.random() * window.innerWidth;
+    const y = Math.random() * window.innerHeight;
+    el.style.left = x + 'px';
+    el.style.top  = y + 'px';
+    reactiveContainer.appendChild(el);
+    mathElements.push({ element: el, x, y, vx: (Math.random() - 0.5) * vMax, vy: (Math.random() - 0.5) * vMax, rotation: Math.random() * 360, rotSpeed: (Math.random() - 0.5) * 1.5, maxSpeed: vMax });
+  }
+ 
+  function createSineWave() {
+    const c   = document.createElement('div');
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    const path= document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    c.classList.add('sine-wave-container');
+    svg.setAttribute('width','200'); svg.setAttribute('height','80'); svg.setAttribute('viewBox','0 0 200 80');
+    const offset = Math.random() * Math.PI * 2;
+    let d = 'M 0 40';
+    for (let j = 0; j <= 200; j += 5) d += ` L ${j} ${40 + Math.sin(j * 0.05 + offset) * 25}`;
+    path.setAttribute('d', d); path.setAttribute('stroke','#e9c46a'); path.setAttribute('stroke-width','2'); path.setAttribute('fill','none'); path.setAttribute('opacity','0.6');
+    svg.appendChild(path); c.appendChild(svg);
+    const x = Math.random() * window.innerWidth;
+    const y = Math.random() * window.innerHeight;
+    c.style.left = x + 'px'; c.style.top = y + 'px';
+    reactiveContainer.appendChild(c);
+    mathElements.push({ element: c, x, y, vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5, rotation: 0, rotSpeed: 0, maxSpeed: 1.5, isChart: true });
+  }
+ 
+  function init() {
+    const n = c => Math.round(c * scale);
+    for (let i = 0; i < n(15); i++) spawnEl({ cls: 'math-formula', text: rand(mathFormulas), vMax: 2.5 });
+    for (let i = 0; i < n(20); i++) spawnEl({ cls: 'math-symbol',  text: rand(mathSymbols),  vMax: 3 });
+    for (let i = 0; i < n(15); i++) spawnEl({ cls: 'math-small',   text: rand(mathSmall),    vMax: 1.8 });
+    for (let i = 0; i < n(8);  i++) createSineWave();
+  }
+ 
+  function animate() {
+    for (const e of mathElements) {
+      const dx = mouseX - e.x, dy = mouseY - e.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 300) {
+        const angle = Math.atan2(dy, dx), force = (300 - dist) / 300;
+        e.vx -= Math.cos(angle) * force * 0.8;
+        e.vy -= Math.sin(angle) * force * 0.8;
+      } else {
+        e.vx += (Math.random() - 0.5) * 0.1;
+        e.vy += (Math.random() - 0.5) * 0.1;
+      }
+      e.x += e.vx; e.y += e.vy;
+      if (e.x < 0 || e.x > window.innerWidth)  e.vx *= -1;
+      if (e.y < 0 || e.y > window.innerHeight) e.vy *= -1;
+      e.x = Math.max(0, Math.min(window.innerWidth,  e.x));
+      e.y = Math.max(0, Math.min(window.innerHeight, e.y));
+      const spd = Math.sqrt(e.vx ** 2 + e.vy ** 2);
+      if (spd > e.maxSpeed) { e.vx = e.vx / spd * e.maxSpeed; e.vy = e.vy / spd * e.maxSpeed; }
+      e.vx *= 0.995; e.vy *= 0.995;
+      e.element.style.left = e.x + 'px';
+      e.element.style.top  = e.y + 'px';
+      if (!e.isChart) { e.rotation += e.rotSpeed; e.element.style.transform = `rotate(${e.rotation}deg)`; }
+    }
+    requestAnimationFrame(animate);
+  }
+ 
+  document.addEventListener('mousemove', ev => {
+    mouseX = ev.clientX; mouseY = ev.clientY;
+    const gx = (mouseX / window.innerWidth)  * 100;
+    const gy = (mouseY / window.innerHeight) * 100;
+    reactiveContainer.style.background = `radial-gradient(circle at ${gx}% ${gy}%, rgba(42,157,143,0.4) 0%, rgba(38,70,83,0.8) 50%, #264653 100%), linear-gradient(135deg,#264653,#2a9d8f)`;
+  });
+ 
+  /* Nav cursor tracker */
+  const tracker = document.querySelector('.menu-tracker');
+  const navDots  = document.querySelector('.nav-dots');
+  const dots     = document.querySelectorAll('.dot');
+  if (tracker && navDots) {
+    document.addEventListener('mousemove', ev => {
+      const r = navDots.getBoundingClientRect();
+      if (ev.clientX >= r.left && ev.clientX <= r.right && ev.clientY >= r.top && ev.clientY <= r.bottom) {
+        tracker.style.left = ev.clientX + 'px';
+        tracker.style.top  = (ev.clientY - 30) + 'px';
+      }
+    });
+    dots.forEach(d => {
+      d.addEventListener('mouseenter', () => { tracker.textContent = d.getAttribute('data-label'); tracker.classList.add('active'); });
+      d.addEventListener('mouseleave', () => tracker.classList.remove('active'));
+    });
+    navDots.addEventListener('mouseleave', () => tracker.classList.remove('active'));
+  }
+ 
+  /* Theme toggle (reuses same button from styles) */
+  const themeBtn  = document.getElementById('themeToggle');
+  const themeIcon = document.getElementById('themeIcon');
+  if (localStorage.getItem('theme') === 'light') { document.body.classList.add('light-mode'); if (themeIcon) themeIcon.className = 'fas fa-sun'; }
+  if (themeBtn) themeBtn.addEventListener('click', () => {
+    document.body.classList.toggle('light-mode');
+    const isLight = document.body.classList.contains('light-mode');
+    if (themeIcon) themeIcon.className = isLight ? 'fas fa-sun' : 'fas fa-moon';
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  });
+ 
+  init();
+  animate();
+}());
+</script>
  
 </body>
 </html>
