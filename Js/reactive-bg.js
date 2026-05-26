@@ -277,5 +277,23 @@ themeToggle.addEventListener('click', () => {
   themeIcon.className = isLight ? 'fas fa-sun' : 'fas fa-moon';
   localStorage.setItem('theme', isLight ? 'light' : 'dark');
 });
+ init();
+  animate();
+
+  // Active dot on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const dotLinks = document.querySelectorAll('.dot');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(sec => {
+      const top = sec.offsetTop - window.innerHeight / 2;
+      if (window.scrollY >= top) current = sec.getAttribute('id');
+    });
+    dotLinks.forEach(d => {
+      d.classList.remove('active');
+      if (d.getAttribute('href') === '#' + current) d.classList.add('active');
+    });
+  }, { passive: true });
 })();
  
