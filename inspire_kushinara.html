@@ -10,81 +10,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <link rel="stylesheet" href="style/styles.css">
-<style>
-  .mission-card {
-    background: linear-gradient(135deg, rgba(42,157,143,0.12), rgba(233,196,106,0.06));
-    border: 1px solid rgba(42,157,143,0.3);
-    border-radius: var(--radius);
-    padding: 2rem;
-    text-align: center;
-  }
-  .mission-card .big-icon {
-    font-size: 3.5rem;
-    display: block;
-    margin-bottom: 1rem;
-  }
-  .mission-card h2 {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.5rem;
-    color: var(--accent);
-    margin-bottom: 0.75rem;
-  }
-  .mission-card p { color: var(--text-muted); line-height: 1.8; }
-
-  .domain-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1.5rem;
-    display: flex;
-    gap: 1rem;
-    align-items: flex-start;
-    transition: all 0.25s;
-  }
-  .domain-card:hover {
-    border-color: var(--accent);
-    transform: translateX(4px);
-  }
-  .domain-card .icon {
-    font-size: 2rem;
-    flex-shrink: 0;
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(233,196,106,0.1);
-    border-radius: 10px;
-  }
-  .domain-card h3 {
-    font-size: 1rem;
-    font-weight: 700;
-    margin-bottom: 0.3rem;
-    color: var(--text);
-  }
-  .domain-card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
-
-  .highlight-strip {
-    background: linear-gradient(135deg, var(--primary), #1a8a7d);
-    border-radius: var(--radius);
-    padding: 2rem;
-    text-align: center;
-    color: white;
-    position: relative;
-    overflow: hidden;
-  }
-  .highlight-strip::before {
-    content: '📚';
-    position: absolute;
-    font-size: 8rem;
-    opacity: 0.06;
-    right: -20px;
-    bottom: -20px;
-    pointer-events: none;
-  }
-  .highlight-strip h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
-  .highlight-strip p  { opacity: 0.9; font-size: 0.9rem; line-height: 1.7; }
-</style>
 </head>
 <body>
 
@@ -95,9 +20,11 @@
   <a href="index.html" class="nav-brand">Karan <span>Patel</span></a>
   <div class="nav-links">
     <a href="index.html"                       class="nav-btn home-btn"><i class="fas fa-home"></i> Home</a>
-    <a href="Data Analysis.html"               class="nav-btn"><i class="fas fa-chevron-left"></i> Data Analysis</a>
-    <a href="Karan Patel Kushinagar News.html"  class="nav-btn"><i class="fas fa-chevron-right"></i> KP News</a>
-    <button id="theme-toggle" class="nav-btn theme-btn" title="Toggle light/dark" aria-label="Toggle theme">☀️</button>
+    <a href="data_analysis.html"               class="nav-btn"><i class="fas fa-chevron-left"></i> Data Analysis</a>
+    <a href="kp_kushinagar_news.html"  class="nav-btn"><i class="fas fa-chevron-right"></i> KP News</a>
+    <button id="themeToggle" class="nav-btn theme-btn" aria-label="Toggle dark/light mode">
+      <i class="fas fa-moon" id="themeIcon"></i>
+    </button>
   </div>
 </nav>
 
@@ -110,7 +37,7 @@
     <p>A vision to bridge the gap between rural communities and modern education — practical, affordable, and rooted in empathy.</p>
     <div class="hero-divider"></div>
     <div style="display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;margin-top:1rem;">
-      <a href="https://lynk.id/inspire_kuhinara" target="_blank" class="btn btn-gold">
+      <a href="inspire_kushinara.html" target="_blank" class="btn btn-gold">
         <i class="fas fa-external-link-alt"></i> Visit Inspire Kushinara
       </a>
       <a href="https://wa.me/919453100702" target="_blank" class="btn btn-outline">
@@ -278,11 +205,11 @@
         </div>
         <div style="display:flex;align-items:center;gap:0.75rem;">
           <i class="fas fa-envelope" style="color:var(--accent);font-size:1.1rem;width:24px;"></i>
-          <a href="mailto:karan.patel.workon@gmail.com" style="color:var(--text);text-decoration:none;">karan.patel.workon@gmail.com</a>
+          <a href="mailto:karan.patel.workon@gmail.com" style="color:var(--text);text-decoration:none;">Email Us : karan.patel.workon@gmail.com</a>
         </div>
         <div style="display:flex;align-items:center;gap:0.75rem;">
           <i class="fas fa-link" style="color:var(--accent2);font-size:1.1rem;width:24px;"></i>
-          <a href="https://lynk.id/inspire_kuhinara" target="_blank" style="color:var(--text);text-decoration:none;">lynk.id/inspire_kuhinara</a>
+          <a href="inspire_kushinara.html" target="_blank" style="color:var(--text);text-decoration:none;"> Visite Us</a>
         </div>
       </div>
       <div class="social-row" style="margin-top:1.5rem;">
@@ -303,15 +230,15 @@
 
   <!-- Bottom Nav -->
   <div class="page-bottom-nav">
-    <a href="Data Analysis.html"              class="nav-btn"><i class="fas fa-chevron-left"></i> Data Analysis</a>
+    <a href="data_analysis.html"              class="nav-btn"><i class="fas fa-chevron-left"></i> Data Analysis</a>
     <a href="index.html"                      class="nav-btn home-btn"><i class="fas fa-home"></i> Home</a>
-    <a href="Karan Patel Kushinagar News.html" class="nav-btn"><i class="fas fa-chevron-right"></i> KP News</a>
+    <a href="kp_kushinagar_news.html" class="nav-btn"><i class="fas fa-chevron-right"></i> KP News</a>
   </div>
 
 </main>
 
 <footer class="page-footer">
-  <p>© 2025 <a href="index.html">Karan Patel</a> · Inspire Kushinara · <a href="https://lynk.id/inspire_kuhinara" target="_blank">lynk.id/inspire_kuhinara</a></p>
+  <p>© 2025 <a href="index.html">Karan Patel</a> · Inspire Kushinara · <a href="inspire_kuhinagar.html" target="_blank">Inspire Kuhinagar</a></p>
 </footer>
 
 <script src="Js/reactive-bg.js"></script>
