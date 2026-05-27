@@ -10,118 +10,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <link rel="stylesheet" href="style/styles.css">
-<style>
-  /* ── News Card ── */
-  .news-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-    transition: all 0.3s;
-    display: flex;
-    flex-direction: column;
-  }
-  .news-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 16px 48px rgba(0,0,0,0.3);
-    border-color: rgba(233,196,106,0.4);
-  }
-  .news-card .news-header {
-    height: 140px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 3rem;
-    position: relative;
-    overflow: hidden;
-  }
-  .news-card .news-body { padding: 1.25rem; flex: 1; }
-  .news-card .news-meta {
-    font-size: 0.72rem;
-    color: var(--text-muted);
-    margin-bottom: 0.5rem;
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-  }
-  .news-card .news-meta .category {
-    color: var(--primary);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
-  .news-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; line-height: 1.4; }
-  .news-card p  { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
-  .news-card .news-footer {
-    padding: 0.75rem 1.25rem;
-    border-top: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .news-card .read-time { font-size: 0.72rem; color: var(--text-muted); }
 
-  /* ── Platform Card ── */
-  .platform-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 1.25rem;
-    transition: all 0.25s;
-    text-decoration: none;
-    color: var(--text);
-  }
-  .platform-card:hover {
-    border-color: var(--accent);
-    background: var(--card-hover);
-    transform: translateX(4px);
-  }
-  .platform-card .plat-icon {
-    width: 52px; height: 52px;
-    border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.5rem;
-    flex-shrink: 0;
-  }
-  .platform-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.2rem; }
-  .platform-card p  { font-size: 0.8rem; color: var(--text-muted); }
-  .platform-card .followers {
-    margin-left: auto;
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--accent);
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
 
-  /* ── Breaking News Banner ── */
-  .breaking-banner {
-    background: linear-gradient(135deg, rgba(231,111,81,0.15), rgba(233,196,106,0.08));
-    border: 1px solid rgba(231,111,81,0.35);
-    border-radius: var(--radius);
-    padding: 1rem 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 2rem;
-  }
-  .breaking-label {
-    background: #e76f51;
-    color: white;
-    font-size: 0.7rem;
-    font-weight: 800;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 0.25rem 0.65rem;
-    border-radius: 4px;
-    white-space: nowrap;
-  }
-  .breaking-text { font-size: 0.88rem; color: var(--text); font-weight: 500; }
-</style>
 </head>
 <body>
 
@@ -132,9 +22,11 @@
   <a href="index.html" class="nav-brand">Karan <span>Patel</span></a>
   <div class="nav-links">
     <a href="index.html"              class="nav-btn home-btn"><i class="fas fa-home"></i> Home</a>
-    <a href="Inspire Kushinara.html"  class="nav-btn"><i class="fas fa-chevron-left"></i> Inspire Kushinara</a>
+    <a href="inspire_kushinara.html"  class="nav-btn"><i class="fas fa-chevron-left"></i> Inspire Kushinara</a>
     <a href="index.html#Projects"     class="nav-btn"><i class="fas fa-th-large"></i> All Projects</a>
-    <button id="theme-toggle" class="nav-btn theme-btn" title="Toggle light/dark" aria-label="Toggle theme">☀️</button>
+    <button id="themeToggle" class="nav-btn theme-btn" aria-label="Toggle dark/light mode">
+      <i class="fas fa-moon" id="themeIcon"></i>
+    </button>
   </div>
 </nav>
 
@@ -370,7 +262,7 @@
 
   <!-- Bottom Nav -->
   <div class="page-bottom-nav">
-    <a href="Inspire Kushinara.html" class="nav-btn"><i class="fas fa-chevron-left"></i> Inspire Kushinara</a>
+    <a href="inspire_kushinara.html" class="nav-btn"><i class="fas fa-chevron-left"></i> Inspire Kushinara</a>
     <a href="index.html"             class="nav-btn home-btn"><i class="fas fa-home"></i> Home</a>
     <a href="index.html#Projects"    class="nav-btn"><i class="fas fa-th-large"></i> All Projects</a>
   </div>
