@@ -2,8 +2,6 @@
 app.js
 ========================== */
 
-// Basic HTML escaping so task titles/notes from the sheet can never break
-// the page or inject markup.
 function escapeHtml(str){
 
 if(str===null||str===undefined) return "";
@@ -28,20 +26,51 @@ return escapeHtml(task.Title||task.TaskName||"Untitled task");
 
 }
 
+/* ==========================
+GREETING (salutation)
+Time-of-day greeting + the user's name from Settings. This element
+already existed in the header but was hardcoded to "Good Morning" —
+now it's live and reacts to what's saved on the Settings page.
+========================== */
+
+function renderGreeting(){
+
+const el=document.getElementById("greeting");
+const dateEl=document.getElementById("todayDate");
+
+if(dateEl){
+  dateEl.textContent=new Date().toLocaleDateString(undefined,{
+    weekday:"long", year:"numeric", month:"long", day:"numeric"
+  });
+}
+
+if(!el) return;
+
+const hour=new Date().getHours();
+const name=Local.getSettings().userName?.trim();
+
+let salutation="Good Evening";
+if(hour<5) salutation="Still up";
+else if(hour<12) salutation="Good Morning";
+else if(hour<17) salutation="Good Afternoon";
+else if(hour<21) salutation="Good Evening";
+else salutation="Good Night";
+
+el.textContent=name ? `${salutation}, ${name}` : salutation;
+
+}
+
 function renderDashboard() {
 
     const dashboard = document.getElementById("dashboard");
 
     if (!dashboard) return;
 
-    const total = AppState.today.length;
+    const total = AppState.todayTotal;
 
-    const completed = AppState.today.filter(t =>
-        t.Status === "Completed" ||
-        t.Completed === true
-    ).length;
+    const completed = AppState.todayCompletedCount;
 
-    const pending = total - completed;
+    const pending = AppState.todayPending.length;
 
     const percent = total === 0 ? 0 :
         Math.round((completed / total) * 100);
@@ -162,12 +191,14 @@ function renderToday() {
 
     container.innerHTML = "";
 
-    if (AppState.today.length === 0) {
+    if (AppState.todayPending.length === 0) {
+
+        const allDone = AppState.todayTotal > 0;
 
         container.innerHTML = `
 <div class="card">
 
-Nothing scheduled today 🎉
+${allDone ? "All done for today 🎉" : "Nothing scheduled today 🎉"}
 
 </div>
 `;
@@ -176,7 +207,7 @@ Nothing scheduled today 🎉
 
     }
 
-    AppState.today.forEach(task => {
+    AppState.todayPending.forEach(task => {
 
         const occId = escapeHtml(task.OccurrenceID);
 
@@ -373,9 +404,7 @@ function priorityColor(priority) {
 }
 
 /* ==========================
-MOOD SECTION (was missing — this was throwing a
-ReferenceError on every load and silently killing the
-error-free path in loadLifeOS)
+MOOD SECTION
 ========================== */
 
 const MOOD_OPTIONS = ["😄","😊","😐","😔","😡"];
@@ -386,8 +415,6 @@ function renderMood() {
 
     if (!section) return;
 
-    // Only build the static shell once; re-renders after this just
-    // refresh the trend list so the user doesn't lose in-progress input.
     if (!document.getElementById("moodForm")) {
 
         section.innerHTML = `
@@ -530,10 +557,21 @@ document
 
         if (target) target.classList.remove("hidden");
 
+        // Lazily render sections that don't need live server data on
+        // every app load — Settings and Chat Planner build themselves
+        // the first time they're opened.
+        if (btn.dataset.page === "settings" && typeof renderSettings === "function") {
+            renderSettings();
+        }
+
+        if (btn.dataset.page === "chat" && typeof renderChat === "function") {
+            renderChat();
+        }
+
     };
 
 });
 
 const fab = document.getElementById("fab");
 
-if (fab) fab.onclick = loadLifeOS;
+if (fab) fab.onclick = syncLife;
