@@ -14,7 +14,7 @@ if(location.protocol==="file:"){
 }
 
 const controller=new AbortController();
-const timeout=setTimeout(()=>controller.abort(),8000);
+const timeout=setTimeout(()=>controller.abort(),20000);
 
 let response;
 try{
@@ -55,7 +55,7 @@ if(location.protocol==="file:"){
 }
 
 const controller=new AbortController();
-const timeout=setTimeout(()=>controller.abort(),8000);
+const timeout=setTimeout(()=>controller.abort(),20000);
 
 let response;
 try{
@@ -251,43 +251,17 @@ try{
 
 showLoader(true);
 
-const [
-
-dashboard,
-
-today,
-
-tomorrow,
-
-next7,
-
-nextWeek,
-
-next30,
-
-upcoming,
-
-moods
-
-]=await Promise.all([
-
-LifeAPI.dashboard(),
-
-LifeAPI.today(),
-
-LifeAPI.tomorrow(),
-
-LifeAPI.next7(),
-
-LifeAPI.nextWeek(),
-
-LifeAPI.next30(),
-
-LifeAPI.upcoming(),
-
-LifeAPI.moods()
-
-]);
+// Sequential rather than Promise.all: firing 8 simultaneous requests at
+// one Apps Script deployment can exceed its concurrency handling and
+// cause some calls to stall/timeout. One at a time is slower but reliable.
+const dashboard=await LifeAPI.dashboard();
+const today=await LifeAPI.today();
+const tomorrow=await LifeAPI.tomorrow();
+const next7=await LifeAPI.next7();
+const nextWeek=await LifeAPI.nextWeek();
+const next30=await LifeAPI.next30();
+const upcoming=await LifeAPI.upcoming();
+const moods=await LifeAPI.moods();
 
 AppState.dashboard=dashboard||{};
 
