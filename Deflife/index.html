@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -10,7 +9,7 @@
 <link rel="stylesheet" href="style.css">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 
@@ -20,8 +19,12 @@
 <meta name="theme-color" content="#08111d">
 
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<link rel="icon" href="icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="icon-192.png">
 
 </head>
 
@@ -35,7 +38,7 @@
 
 <header>
 
-<div class="greeting">
+<div class="greeting" id="greeting">
 Good Morning
 </div>
 
@@ -55,35 +58,41 @@ Good Morning
 
 <section id="mood" class="hidden"></section>
 
+<section id="chat" class="hidden"></section>
+
 <section id="settings" class="hidden"></section>
 
 </main>
 
 <nav class="bottom-nav">
 
-<button data-page="dashboard" class="active">
+<button data-page="dashboard" class="active" title="Home">
 <span class="material-icons-round">home</span>
 </button>
 
-<button data-page="timeline">
+<button data-page="timeline" title="Timeline">
 <span class="material-icons-round">event</span>
 </button>
 
-<button data-page="analytics">
+<button data-page="analytics" title="Analytics">
 <span class="material-icons-round">analytics</span>
 </button>
 
-<button data-page="mood">
+<button data-page="mood" title="Mood">
 <span class="material-icons-round">sentiment_satisfied</span>
 </button>
 
-<button data-page="settings">
+<button data-page="chat" title="Planner chat">
+<span class="material-icons-round">chat_bubble</span>
+</button>
+
+<button data-page="settings" title="Settings">
 <span class="material-icons-round">settings</span>
 </button>
 
 </nav>
 
-<button id="fab">
+<button id="fab" title="Sync now">
 <span class="material-icons-round">
 refresh
 </span>
@@ -94,6 +103,9 @@ refresh
 <script src="api.js"></script>
 <script src="charts.js"></script>
 <script src="app.js"></script>
+<script src="settings.js"></script>
+<script src="chat.js"></script>
+<script src="reminders.js"></script>
 <script>
 
 if("serviceWorker" in navigator){
@@ -104,8 +116,24 @@ navigator.serviceWorker.register("sw.js");
 
 });
 
+// When a new service worker takes over (i.e. you've pushed an update),
+// reload once automatically instead of leaving the tab stuck on old
+// cached JS/HTML until the user manually clears site data.
+let refreshing=false;
+
+navigator.serviceWorker.addEventListener("controllerchange",()=>{
+
+if(refreshing) return;
+
+refreshing=true;
+
+window.location.reload();
+
+});
+
 }
 
 </script>
-</body>
-</html>
+
+
+</body></html>
