@@ -2,7 +2,7 @@
 sw.js
 ========================== */
 
-const CACHE="lifeos-v2";
+const CACHE="lifeos-v3";
 
 const FILES=[
 
