@@ -1,130 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#08111d">
 <title>LifeOS</title>
-
-<link rel="stylesheet" href="style.css">
-
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<link rel="manifest" href="manifest.json">
-
-<meta name="theme-color" content="#08111d">
-
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-<link rel="icon" href="assets/icon-192.png" type="image/png">
-<link rel="apple-touch-icon" href="assets/icon-192.png">
-
+<link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
+<!-- LOADER -->
 <div id="loader">
-    Loading LifeOS...
+  <div class="loader-inner">
+    <div class="loader-logo">LifeOS</div>
+    <div class="loader-bar"><div class="loader-fill"></div></div>
+    <div class="loader-text">Loading your day...</div>
+  </div>
 </div>
 
+<!-- REMINDER BANNER -->
+<div id="reminderBanner" class="reminder-banner hidden">
+  <span class="material-icons-round">alarm</span>
+  <span id="reminderText"></span>
+  <button onclick="dismissReminder()"><span class="material-icons-round">close</span></button>
+</div>
+
+<!-- APP SHELL -->
 <div id="app">
 
-<header>
+  <header>
+    <div class="header-top">
+      <div>
+        <div class="greeting" id="greeting">Good Morning</div>
+        <h1>Life<span class="brand-accent">OS</span></h1>
+        <p id="todayDate" class="today-date"></p>
+      </div>
+      <div class="header-right">
+        <div class="streak-badge" id="streakBadge">
+          <span class="material-icons-round">local_fire_department</span>
+          <span id="streakCount">0</span>
+        </div>
+        <div class="sync-status" id="syncStatus">
+          <span class="material-icons-round">cloud_done</span>
+        </div>
+      </div>
+    </div>
+  </header>
 
-<div class="greeting">
-Good Morning
+  <main id="content">
+
+    <!-- DASHBOARD -->
+    <section id="dashboard"></section>
+
+    <!-- TIMELINE / UPCOMING -->
+    <section id="timeline" class="hidden"></section>
+
+    <!-- ANALYTICS -->
+    <section id="analytics" class="hidden"></section>
+
+    <!-- MOOD -->
+    <section id="mood" class="hidden"></section>
+
+    <!-- SETTINGS -->
+    <section id="settings" class="hidden"></section>
+
+  </main>
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
+    <button data-page="dashboard" class="active">
+      <span class="material-icons-round">home</span>
+      <span>Home</span>
+    </button>
+    <button data-page="timeline">
+      <span class="material-icons-round">calendar_today</span>
+      <span>Plan</span>
+    </button>
+    <button data-page="analytics">
+      <span class="material-icons-round">bar_chart</span>
+      <span>Stats</span>
+    </button>
+    <button data-page="mood">
+      <span class="material-icons-round">mood</span>
+      <span>Mood</span>
+    </button>
+    <button data-page="settings">
+      <span class="material-icons-round">tune</span>
+      <span>Settings</span>
+    </button>
+  </nav>
+
+  <!-- FAB — manual sync -->
+  <button id="fab" title="Sync now">
+    <span class="material-icons-round">sync</span>
+  </button>
+
 </div>
 
-<h1>LifeOS</h1>
-
-<p id="todayDate"></p>
-
-</header>
-
-<main id="content">
-
-<section id="dashboard"></section>
-
-<section id="timeline" class="hidden"></section>
-
-<section id="analytics" class="hidden"></section>
-
-<section id="mood" class="hidden"></section>
-
-<section id="settings" class="hidden"></section>
-
-</main>
-
-<nav class="bottom-nav">
-
-<button data-page="dashboard" class="active">
-<span class="material-icons-round">home</span>
-</button>
-
-<button data-page="timeline">
-<span class="material-icons-round">event</span>
-</button>
-
-<button data-page="analytics">
-<span class="material-icons-round">analytics</span>
-</button>
-
-<button data-page="mood">
-<span class="material-icons-round">sentiment_satisfied</span>
-</button>
-
-<button data-page="settings">
-<span class="material-icons-round">settings</span>
-</button>
-
-</nav>
-
-<button id="fab">
-<span class="material-icons-round">
-refresh
-</span>
-</button>
-
-</div>
+<!-- TOAST -->
+<div id="toast" class="toast"></div>
 
 <script src="api.js"></script>
 <script src="charts.js"></script>
 <script src="app.js"></script>
+
 <script>
-
 if("serviceWorker" in navigator){
-
-window.addEventListener("load",()=>{
-
-navigator.serviceWorker.register("sw.js");
-
-});
-
-// When a new service worker takes over (i.e. you've pushed an update),
-// reload once automatically instead of leaving the tab stuck on old
-// cached JS/HTML until the user manually clears site data.
-let refreshing=false;
-
-navigator.serviceWorker.addEventListener("controllerchange",()=>{
-
-if(refreshing) return;
-
-refreshing=true;
-
-window.location.reload();
-
-});
-
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js").catch(()=>{});
+  });
+  let refreshing = false;
+  navigator.serviceWorker.addEventListener("controllerchange", () => {
+    if(refreshing) return;
+    refreshing = true;
+    window.location.reload();
+  });
 }
-
 </script>
+
 </body>
 </html>
