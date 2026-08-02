@@ -1,0 +1,94 @@
+/* ==========================
+sw.js
+========================== */
+
+const CACHE="lifeos-v2";
+
+const FILES=[
+
+"./",
+
+"./index.html",
+
+"./style.css",
+
+"./app.js",
+
+"./api.js",
+
+"./charts.js",
+
+"./manifest.json",
+
+"https://cdn.jsdelivr.net/npm/chart.js",
+
+"https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
+
+"https://fonts.googleapis.com/icon?family=Material+Icons+Round"
+
+];
+
+self.addEventListener("install",e=>{
+
+// Cache each file independently so one unreachable asset (e.g. a
+// third-party font URL during a flaky connection) doesn't fail the
+// entire install and leave the app with zero offline support.
+e.waitUntil(
+
+caches.open(CACHE).then(cache=>
+
+Promise.allSettled(
+
+FILES.map(url=>cache.add(url).catch(err=>console.warn("SW cache skip:",url,err)))
+
+)
+
+)
+
+);
+
+self.skipWaiting();
+
+});
+
+self.addEventListener("fetch",e=>{
+
+// Only handle GET requests — POSTs to the Apps Script API must always
+// hit the network, never be intercepted/cached.
+if(e.request.method!=="GET") return;
+
+e.respondWith(
+
+caches.match(e.request)
+
+.then(r=>r||fetch(e.request))
+
+.catch(()=>caches.match("./index.html"))
+
+);
+
+});
+
+self.addEventListener("activate",e=>{
+
+e.waitUntil(
+
+caches.keys()
+
+.then(keys=>
+
+Promise.all(
+
+keys
+
+.filter(k=>k!==CACHE)
+
+.map(k=>caches.delete(k))
+
+)
+
+).then(()=>self.clients.claim())
+
+);
+
+});
