@@ -9,8 +9,12 @@ const LifeAPI={
 
 async get(action){
 
+if(location.protocol==="file:"){
+  throw new Error("This app is open as a local file — Google's API blocks that. Serve it over http(s) instead (e.g. python -m http.server), then reload.");
+}
+
 const controller=new AbortController();
-const timeout=setTimeout(()=>controller.abort(),15000);
+const timeout=setTimeout(()=>controller.abort(),8000);
 
 let response;
 try{
@@ -46,8 +50,12 @@ async post(body){
 // "text/plain" is a CORS "simple" content type and skips preflight.
 // Your Apps Script doPost() should read the body with:
 //   const data = JSON.parse(e.postData.contents);
+if(location.protocol==="file:"){
+  throw new Error("This app is open as a local file — Google's API blocks that. Serve it over http(s) instead (e.g. python -m http.server), then reload.");
+}
+
 const controller=new AbortController();
-const timeout=setTimeout(()=>controller.abort(),15000);
+const timeout=setTimeout(()=>controller.abort(),8000);
 
 let response;
 try{
