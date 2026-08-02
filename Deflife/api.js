@@ -5,9 +5,15 @@
 const API_URL =
 "https://script.google.com/macros/s/AKfycbx_ZaXg8IwK5TOEb4CO3ebh8ycujulJv6OjvkQMW-2RpOvVqysdqq1_y-dfqEjdHEBTDw/exec";
 
+// How many requests to send at once when doing a full load. Google Apps
+// Script deployments have limited concurrent-execution headroom; 3 at a
+// time is a middle ground between "one giant waterfall" (slow) and
+// "8 at once" (some calls stall/timeout under load).
+const BATCH_SIZE = 3;
+
 const LifeAPI={
 
-async get(action){
+async _request(url, options){
 
 if(location.protocol==="file:"){
   throw new Error("This app is open as a local file — Google's API blocks that. Serve it over http(s) instead (e.g. python -m http.server), then reload.");
@@ -18,10 +24,7 @@ const timeout=setTimeout(()=>controller.abort(),20000);
 
 let response;
 try{
-  response=await fetch(
-    `${API_URL}?action=${action}&t=${Date.now()}`,
-    { signal:controller.signal }
-  );
+  response=await fetch(url, { ...options, signal:controller.signal });
 }catch(err){
   throw new Error(err.name==="AbortError"?"Request timed out":"Network error — check your connection");
 }finally{
@@ -42,7 +45,40 @@ return data;
 
 },
 
-async post(body){
+// Retries transient failures (timeouts, network blips) with a short
+// backoff. Does NOT retry the file:// guard error, since retrying that
+// can never succeed.
+async _withRetry(fn, retries=2, delay=700){
+
+try{
+
+return await fn();
+
+}catch(err){
+
+if(retries<=0 || err.message.startsWith("This app is open as a local file")){
+
+throw err;
+
+}
+
+await new Promise(r=>setTimeout(r, delay));
+
+return this._withRetry(fn, retries-1, delay*1.5);
+
+}
+
+},
+
+get(action){
+
+return this._withRetry(()=>
+
+this._request(`${API_URL}?action=${action}&t=${Date.now()}`)
+
+);
+
+},
 
 // IMPORTANT: Apps Script web apps do not handle CORS preflight (OPTIONS)
 // requests. Sending "Content-Type: application/json" forces the browser
@@ -50,126 +86,55 @@ async post(body){
 // "text/plain" is a CORS "simple" content type and skips preflight.
 // Your Apps Script doPost() should read the body with:
 //   const data = JSON.parse(e.postData.contents);
-if(location.protocol==="file:"){
-  throw new Error("This app is open as a local file — Google's API blocks that. Serve it over http(s) instead (e.g. python -m http.server), then reload.");
-}
+post(body){
 
-const controller=new AbortController();
-const timeout=setTimeout(()=>controller.abort(),20000);
+return this._withRetry(()=>
 
-let response;
-try{
-  response=await fetch(API_URL,{
-    method:"POST",
-    headers:{
-      "Content-Type":"text/plain;charset=utf-8"
-    },
-    body:JSON.stringify(body),
-    signal:controller.signal
-  });
-}catch(err){
-  throw new Error(err.name==="AbortError"?"Request timed out":"Network error — check your connection");
-}finally{
-  clearTimeout(timeout);
-}
+this._request(API_URL,{
 
-if(!response.ok){
-  throw new Error(`Server Error (${response.status})`);
-}
+method:"POST",
 
-const data=await response.json();
+headers:{ "Content-Type":"text/plain;charset=utf-8" },
 
-if(data && data.error){
-  throw new Error(data.error);
-}
+body:JSON.stringify(body)
 
-return data;
+})
+
+);
 
 },
 
-dashboard(){
+dashboard(){ return this.get("dashboard"); },
 
-return this.get("dashboard");
+today(){ return this.get("today"); },
 
-},
+tomorrow(){ return this.get("tomorrow"); },
 
-today(){
+next7(){ return this.get("next7"); },
 
-return this.get("today");
+nextWeek(){ return this.get("nextWeek"); },
 
-},
+next30(){ return this.get("next30"); },
 
-tomorrow(){
+upcoming(){ return this.get("upcoming"); },
 
-return this.get("tomorrow");
-
-},
-
-next7(){
-
-return this.get("next7");
-
-},
-
-nextWeek(){
-
-return this.get("nextWeek");
-
-},
-
-next30(){
-
-return this.get("next30");
-
-},
-
-upcoming(){
-
-return this.get("upcoming");
-
-},
-
-moods(){
-
-return this.get("mood");
-
-},
+moods(){ return this.get("mood"); },
 
 sync(){
 
-return this.post({
-
-action:"sync"
-
-});
+return this.post({ action:"sync" });
 
 },
 
 complete(id,note=""){
 
-return this.post({
-
-action:"completeTask",
-
-occurrenceId:id,
-
-note
-
-});
+return this.post({ action:"completeTask", occurrenceId:id, note });
 
 },
 
 skip(id,note=""){
 
-return this.post({
-
-action:"skipTask",
-
-occurrenceId:id,
-
-note
-
-});
+return this.post({ action:"skipTask", occurrenceId:id, note });
 
 },
 
@@ -177,19 +142,7 @@ logMood(mood,energy,focus,stress,motivation,note){
 
 return this.post({
 
-action:"logMood",
-
-mood,
-
-energy,
-
-focus,
-
-stress,
-
-motivation,
-
-note
+action:"logMood", mood, energy, focus, stress, motivation, note
 
 });
 
@@ -241,8 +194,29 @@ return [];
 
 }
 
+// Runs a list of zero-arg async fetchers in fixed-size concurrent batches,
+// returning results in the original order. Faster than one-at-a-time,
+// gentler on the backend than firing everything at once.
+async function runInBatches(fetchers, batchSize=BATCH_SIZE){
+
+const results=new Array(fetchers.length);
+
+for(let i=0;i<fetchers.length;i+=batchSize){
+
+const slice=fetchers.slice(i,i+batchSize);
+
+const settled=await Promise.all(slice.map(fn=>fn()));
+
+settled.forEach((val,j)=>{ results[i+j]=val; });
+
+}
+
+return results;
+
+}
+
 /* ==========================
-LOAD EVERYTHING
+LOAD EVERYTHING (full load — startup and manual sync only)
 ========================== */
 
 async function loadLifeOS(){
@@ -251,17 +225,43 @@ try{
 
 showLoader(true);
 
-// Sequential rather than Promise.all: firing 8 simultaneous requests at
-// one Apps Script deployment can exceed its concurrency handling and
-// cause some calls to stall/timeout. One at a time is slower but reliable.
-const dashboard=await LifeAPI.dashboard();
-const today=await LifeAPI.today();
-const tomorrow=await LifeAPI.tomorrow();
-const next7=await LifeAPI.next7();
-const nextWeek=await LifeAPI.nextWeek();
-const next30=await LifeAPI.next30();
-const upcoming=await LifeAPI.upcoming();
-const moods=await LifeAPI.moods();
+const [
+
+dashboard,
+
+today,
+
+tomorrow,
+
+next7,
+
+nextWeek,
+
+next30,
+
+upcoming,
+
+moods
+
+]=await runInBatches([
+
+()=>LifeAPI.dashboard(),
+
+()=>LifeAPI.today(),
+
+()=>LifeAPI.tomorrow(),
+
+()=>LifeAPI.next7(),
+
+()=>LifeAPI.nextWeek(),
+
+()=>LifeAPI.next30(),
+
+()=>LifeAPI.upcoming(),
+
+()=>LifeAPI.moods()
+
+]);
 
 AppState.dashboard=dashboard||{};
 
@@ -282,8 +282,6 @@ AppState.moods=(moods && (moods.logs||moods))||[];
 if(!Array.isArray(AppState.moods)) AppState.moods=[];
 
 renderDashboard();
-
-renderToday();
 
 renderUpcoming();
 
@@ -307,23 +305,71 @@ showLoader(false);
 
 }
 
+// Refreshes just "today" + "dashboard" in the background — used after a
+// task action to reconcile with the server without refetching all 8
+// endpoints. Errors here are logged but don't interrupt the user; the
+// optimistic UI update already reflects their action.
+async function refreshTodayInBackground(){
+
+try{
+
+const [dashboard, today]=await runInBatches([
+
+()=>LifeAPI.dashboard(),
+
+()=>LifeAPI.today()
+
+]);
+
+AppState.dashboard=dashboard||{};
+
+AppState.today=extractTasks(today);
+
+renderDashboard();
+
+renderCharts();
+
+}catch(err){
+
+console.error("Background refresh failed:", err);
+
+}
+
+}
+
 /* ==========================
-TASK ACTIONS
+TASK ACTIONS (optimistic UI)
 ========================== */
 
 async function completeTask(id){
+
+const idx=AppState.today.findIndex(t=>t.OccurrenceID===id);
+
+if(idx===-1) return;
+
+const previous={ ...AppState.today[idx] };
+
+// Update immediately so the button feels instant, then reconcile with
+// the server in the background instead of blocking on a full reload.
+AppState.today[idx]={ ...previous, Status:"Completed", Completed:true };
+
+renderDashboard();
 
 try{
 
 await LifeAPI.complete(id);
 
-await loadLifeOS();
+refreshTodayInBackground();
 
 }catch(err){
 
 console.error(err);
 
-showError("Couldn't complete task: "+err.message);
+AppState.today[idx]=previous;
+
+renderDashboard();
+
+showError("Couldn't complete task — reverted: "+err.message);
 
 }
 
@@ -331,17 +377,31 @@ showError("Couldn't complete task: "+err.message);
 
 async function skipTask(id){
 
+const idx=AppState.today.findIndex(t=>t.OccurrenceID===id);
+
+if(idx===-1) return;
+
+const previous={ ...AppState.today[idx] };
+
+AppState.today[idx]={ ...previous, Status:"Skipped" };
+
+renderDashboard();
+
 try{
 
 await LifeAPI.skip(id);
 
-await loadLifeOS();
+refreshTodayInBackground();
 
 }catch(err){
 
 console.error(err);
 
-showError("Couldn't skip task: "+err.message);
+AppState.today[idx]=previous;
+
+renderDashboard();
+
+showError("Couldn't skip task — reverted: "+err.message);
 
 }
 
@@ -349,6 +409,8 @@ showError("Couldn't skip task: "+err.message);
 
 async function syncLife(){
 
+// A user-initiated full resync — this one legitimately needs everything,
+// since the backend may regenerate occurrences across all date ranges.
 try{
 
 await LifeAPI.sync();
@@ -366,64 +428,49 @@ showError("Sync failed: "+err.message);
 }
 
 /* ==========================
-MOOD
+MOOD (optimistic UI)
 ========================== */
 
 async function saveMood(){
 
 const mood=document.querySelector(".mood.active")?.dataset.value||"😊";
 
-const energy=Number(
+const energy=Number(document.getElementById("energy")?.value||0);
 
-document.getElementById("energy")?.value||0
+const focus=Number(document.getElementById("focus")?.value||0);
 
-);
+const stress=Number(document.getElementById("stress")?.value||0);
 
-const focus=Number(
-
-document.getElementById("focus")?.value||0
-
-);
-
-const stress=Number(
-
-document.getElementById("stress")?.value||0
-
-);
-
-const motivation=Number(
-
-document.getElementById("motivation")?.value||0
-
-);
+const motivation=Number(document.getElementById("motivation")?.value||0);
 
 const note=document.getElementById("note")?.value||"";
 
+const optimisticEntry={ Mood:mood, Energy:energy, Focus:focus, Stress:stress, Motivation:motivation, Note:note };
+
+AppState.moods.push(optimisticEntry);
+
+renderMoodHistory();
+
+renderDashboard();
+
 try{
 
-await LifeAPI.logMood(
+await LifeAPI.logMood(mood, energy, focus, stress, motivation, note);
 
-mood,
-
-energy,
-
-focus,
-
-stress,
-
-motivation,
-
-note
-
-);
-
-await loadLifeOS();
+// Mood log doesn't affect today/dashboard task counts, so no
+// background refresh is needed beyond what we already applied.
 
 }catch(err){
 
 console.error(err);
 
-showError("Couldn't save mood: "+err.message);
+AppState.moods.pop();
+
+renderMoodHistory();
+
+renderDashboard();
+
+showError("Couldn't save mood — reverted: "+err.message);
 
 }
 
