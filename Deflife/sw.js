@@ -2,7 +2,7 @@
 sw.js
 ========================== */
 
-const CACHE="lifeos-v4";
+const CACHE="lifeos-v2";
 
 const FILES=[
 
@@ -57,38 +57,6 @@ self.addEventListener("fetch",e=>{
 // hit the network, never be intercepted/cached.
 if(e.request.method!=="GET") return;
 
-const url=new URL(e.request.url);
-const isSameOrigin=url.origin===self.location.origin;
-
-if(isSameOrigin){
-
-// Network-first for your own app files, so a new deploy is picked up
-// on next load instead of being stuck behind the old cached version.
-// Falls back to cache only if the network is unavailable (offline).
-e.respondWith(
-
-fetch(e.request)
-
-.then(res=>{
-
-const clone=res.clone();
-
-caches.open(CACHE).then(cache=>cache.put(e.request,clone));
-
-return res;
-
-})
-
-.catch(()=>caches.match(e.request).then(r=>r||caches.match("./index.html")))
-
-);
-
-return;
-
-}
-
-// Cache-first for third-party assets (fonts, CDN libs) — these rarely
-// change and cache-first keeps things fast/offline-friendly.
 e.respondWith(
 
 caches.match(e.request)
