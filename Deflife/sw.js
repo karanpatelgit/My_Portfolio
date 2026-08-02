@@ -2,7 +2,7 @@
 sw.js
 ========================== */
 
-const CACHE="lifeos-v2";
+const CACHE="lifeos-v5";
 
 const FILES=[
 
@@ -18,6 +18,12 @@ const FILES=[
 
 "./charts.js",
 
+"./settings.js",
+
+"./chat.js",
+
+"./reminders.js",
+
 "./manifest.json",
 
 "https://cdn.jsdelivr.net/npm/chart.js",
@@ -30,9 +36,6 @@ const FILES=[
 
 self.addEventListener("install",e=>{
 
-// Cache each file independently so one unreachable asset (e.g. a
-// third-party font URL during a flaky connection) doesn't fail the
-// entire install and leave the app with zero offline support.
 e.waitUntil(
 
 caches.open(CACHE).then(cache=>
@@ -53,9 +56,34 @@ self.skipWaiting();
 
 self.addEventListener("fetch",e=>{
 
-// Only handle GET requests — POSTs to the Apps Script API must always
-// hit the network, never be intercepted/cached.
 if(e.request.method!=="GET") return;
+
+const url=new URL(e.request.url);
+const isSameOrigin=url.origin===self.location.origin;
+
+if(isSameOrigin){
+
+e.respondWith(
+
+fetch(e.request)
+
+.then(res=>{
+
+const clone=res.clone();
+
+caches.open(CACHE).then(cache=>cache.put(e.request,clone));
+
+return res;
+
+})
+
+.catch(()=>caches.match(e.request).then(r=>r||caches.match("./index.html")))
+
+);
+
+return;
+
+}
 
 e.respondWith(
 
