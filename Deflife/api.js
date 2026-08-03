@@ -28,7 +28,7 @@
 ========================== */
 
 const API_URL =
-"https://script.google.com/macros/s/AKfycbx_ZaXg8IwK5TOEb4CO3ebh8ycujulJv6OjvkQMW-2RpOvVqysdqq1_y-dfqEjdHEBTDw/exec";
+"https://script.google.com/macros/s/AKfycbyjGJssaqKGoOsx-t3RE66wGRQ6v7jUd_prBoWv8fnVL69Nb7f1ZsvQ9HElmOOGGjSWEw/exec";
 
 const LifeAPI={
 
