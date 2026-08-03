@@ -6,6 +6,13 @@ let weeklyChart = null;
 let categoryChart = null;
 let moodChart = null;
 
+// Reads the live --primary CSS variable so charts always match whatever
+// accent color the person picked on the Settings page.
+function accentColor(){
+  const v=getComputedStyle(document.documentElement).getPropertyValue("--primary").trim();
+  return v || "#4da3ff";
+}
+
 function renderCharts() {
 
     renderWeeklyChart();
@@ -64,15 +71,7 @@ function renderWeeklyChart() {
 
                 borderRadius:10,
 
-                backgroundColor:[
-                    "#4da3ff",
-                    "#4da3ff",
-                    "#4da3ff",
-                    "#4da3ff",
-                    "#4da3ff",
-                    "#4da3ff",
-                    "#4da3ff"
-                ]
+                backgroundColor:accentColor()
 
             }]
 
@@ -169,7 +168,7 @@ function renderCategoryChart(){
 
                 backgroundColor:[
 
-                    "#4da3ff",
+                    accentColor(),
                     "#00d084",
                     "#ffb347",
                     "#ff5d73",
@@ -264,7 +263,7 @@ function renderMoodChart(){
 
                 data:focus,
 
-                borderColor:"#4da3ff",
+                borderColor:accentColor(),
 
                 tension:.4
 
