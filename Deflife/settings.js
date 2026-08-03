@@ -16,12 +16,38 @@ function renderSettings(){
 
   const notifPermission = ("Notification" in window) ? Notification.permission : "unsupported";
 
+  const ACCENTS=[
+    { name:"Sky",     hex:"#4da3ff" },
+    { name:"Emerald", hex:"#00d084" },
+    { name:"Amber",   hex:"#ffb347" },
+    { name:"Coral",   hex:"#ff5d73" },
+    { name:"Violet",  hex:"#8b5cf6" },
+    { name:"Cyan",    hex:"#06b6d4" }
+  ];
+
+  const swatchesHtml=ACCENTS.map(a=>`
+<div
+  class="accent-swatch${s.accentColor===a.hex?" active":""}"
+  data-hex="${a.hex}"
+  title="${a.name}"
+  style="background:${a.hex};">
+</div>
+`).join("");
+
   section.innerHTML=`
 
 <div class="card fade">
 <h2>Profile</h2>
 <label style="display:block;margin-top:12px;color:var(--muted);font-size:13px;">What should LifeOS call you?</label>
 <input id="settingUserName" type="text" value="${escapeHtml(s.userName)}" placeholder="Your name">
+</div>
+
+<div class="card fade">
+<h2>Appearance</h2>
+<label style="display:block;margin-top:4px;color:var(--muted);font-size:13px;">Accent color</label>
+<div id="accentSwatches" style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap;">
+${swatchesHtml}
+</div>
 </div>
 
 <div class="card fade">
@@ -75,6 +101,17 @@ Pulls fresh data from your master planner and rebuilds today/upcoming occurrence
   document.getElementById("settingUserName").addEventListener("change", (e)=>{
     Local.saveSettings({ userName: e.target.value.trim() });
     renderGreeting();
+  });
+
+  document.querySelectorAll(".accent-swatch").forEach(swatch=>{
+    swatch.addEventListener("click", ()=>{
+      const hex=swatch.dataset.hex;
+      Local.saveSettings({ accentColor: hex });
+      applyAccentColor(hex);
+      document.querySelectorAll(".accent-swatch").forEach(s=>s.classList.remove("active"));
+      swatch.classList.add("active");
+      renderCharts(); // repaint charts with the new color immediately
+    });
   });
 
   document.getElementById("settingReminderEnabled").addEventListener("change", (e)=>{
