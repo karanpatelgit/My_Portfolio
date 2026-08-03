@@ -2,23 +2,29 @@
    api.js
    Core networking + app state.
 
-   FIXES IN THIS REWRITE
+   CURRENT ARCHITECTURE
    ----------------------
-   1. loadLifeOS() used to fire 8 requests in fixed batches of 3 via
-      Promise.all. If ANY single endpoint failed (e.g. the "mood" action
-      erroring on the backend), the whole Promise.all rejected, the outer
-      try/catch fired, and NONE of the render*() functions ever ran —
-      not dashboard, not mood, not settings-adjacent state. That is why
-      whole sections looked "dead": one bad endpoint silently blocked
-      everything else. Now every endpoint is fetched independently with
-      Promise.allSettled, so one failure only blanks out its own section
-      and shows a small toast, while everything else still renders.
-   2. Today's tasks are now split into "pending" vs "done/skipped" the
+   1. SPEED: loadLifeOS() used to fire 8 separate requests (dashboard,
+      today, tomorrow, next7, nextWeek, next30, upcoming, mood) at Apps
+      Script in parallel. Apps Script web apps queue/serialize concurrent
+      requests to the same deployment, so 8-at-once could take close to
+      8x as long as one call — that was the main cause of slow opens.
+      The backend's ?action=dashboard already bundles everything the
+      frontend actually renders (today/tomorrow/next7/nextWeek/upcoming/
+      moods) into one response, and next30 was being fetched but never
+      used anywhere — so loadLifeOS() now makes exactly ONE request.
+   2. INSTANT OPEN: the last successful dashboard response is cached in
+      localStorage (Local.getCachedDashboard/setCachedDashboard). On
+      reopen, cached data paints immediately (no loader flash) while a
+      fresh copy loads underneath it (stale-while-revalidate).
+   3. Today's tasks are split into "pending" vs "done/skipped" the
       moment they load. Completing or skipping a task removes it from the
       visible list immediately instead of just relabeling it in place.
-   3. Added addTask() for the new Chat Planner, with a local offline queue
+   4. addTask() backs the Chat Planner, with a local offline queue
       (Local.pendingTasks) so a task typed while the backend is slow/down
       is never silently lost — it's queued and retried on next sync.
+   5. THEME: applyAccentColor() applies the person's chosen accent color
+      (set on the Settings page) as a CSS variable as early as possible.
 ========================== */
 
 const API_URL =
@@ -125,8 +131,6 @@ next7(){ return this.get("next7"); },
 
 nextWeek(){ return this.get("nextWeek"); },
 
-next30(){ return this.get("next30"); },
-
 upcoming(){ return this.get("upcoming"); },
 
 moods(){ return this.get("mood"); },
@@ -184,7 +188,8 @@ KEYS:{
   settings:"lifeos.settings",
   chat:"lifeos.chatHistory",
   pending:"lifeos.pendingTasks",
-  notified:"lifeos.notifiedToday"
+  notified:"lifeos.notifiedToday",
+  dashboardCache:"lifeos.dashboardCache"
 },
 
 defaultSettings(){
@@ -192,7 +197,8 @@ defaultSettings(){
     userName:"Karan",
     reminderEnabled:true,
     reminderLeadMin:10,
-    soundEnabled:true
+    soundEnabled:true,
+    accentColor:"#4da3ff"
   };
 },
 
@@ -268,6 +274,27 @@ markNotified(id){
   const state=this.getNotifiedToday();
   if(!state.ids.includes(id)) state.ids.push(id);
   localStorage.setItem(this.KEYS.notified, JSON.stringify(state));
+},
+
+// Last-known-good dashboard payload. Lets the app paint instantly on
+// reopen (stale-while-revalidate) instead of showing a blank loader
+// every single time while Apps Script wakes up.
+getCachedDashboard(){
+  try{
+    const raw=localStorage.getItem(this.KEYS.dashboardCache);
+    if(!raw) return null;
+    return JSON.parse(raw);
+  }catch{
+    return null;
+  }
+},
+
+setCachedDashboard(dash){
+  try{
+    localStorage.setItem(this.KEYS.dashboardCache, JSON.stringify({ ...dash, cachedAt:Date.now() }));
+  }catch{
+    // localStorage full/unavailable — fine to skip caching silently.
+  }
 }
 
 };
@@ -296,8 +323,6 @@ tomorrow:[],
 next7:[],
 
 nextWeek:[],
-
-next30:[],
 
 upcoming:[],
 
@@ -339,9 +364,11 @@ function applyTodaySplit(list){
   AppState.todayPending=list.filter(t=>!isDoneStatus(t) && !isSkippedStatus(t));
 }
 
-// Runs a named set of zero-arg async fetchers independently. A failure in
-// one never blocks the others — each result comes back tagged ok/error so
-// the caller can render whatever succeeded and report only what failed.
+// General-purpose utility: runs a named set of zero-arg async fetchers
+// independently, so a failure in one never blocks the others. Not used
+// by the main load path anymore (that's a single dashboard() call now),
+// but kept around for any feature that genuinely needs several
+// independent endpoints at once.
 async function fetchIndependently(namedFetchers){
 
 const names=Object.keys(namedFetchers);
@@ -369,57 +396,57 @@ return { results:out, failures };
 }
 
 /* ==========================
-LOAD EVERYTHING (full load — startup and manual sync only)
+LOAD EVERYTHING
+Your backend's ?action=dashboard already bundles today/tomorrow/next7/
+nextWeek/upcoming/moods into ONE response. The old version fired 8
+separate requests at Apps Script in parallel, which — because Apps
+Script web apps queue/serialize concurrent executions on the same
+deployment — could take close to 8x as long as a single call, and any
+one of them retrying/timing out looked like "the app is stuck". Now
+it's one request.
 ========================== */
+
+function applyDashboard(dash){
+  AppState.dashboard=dash||{};
+  applyTodaySplit(extractTasks({ tasks: dash.today }));
+  AppState.tomorrow=extractTasks({ tasks: dash.tomorrow });
+  AppState.next7=extractTasks({ tasks: dash.next7 });
+  AppState.nextWeek=extractTasks({ tasks: dash.nextWeek });
+  AppState.upcoming=extractTasks({ tasks: dash.upcoming });
+  const moods=dash.moods;
+  AppState.moods=Array.isArray(moods) ? moods : (moods && Array.isArray(moods.logs) ? moods.logs : []);
+}
+
+function renderAll(){
+  renderGreeting();
+  renderDashboard();
+  renderUpcoming();
+  renderCharts();
+  renderMood();
+}
 
 async function loadLifeOS(){
 
+const cached=Local.getCachedDashboard();
+
+// Stale-while-revalidate: paint last-known-good data immediately (no
+// loader flash) if we have it, then quietly refresh underneath it.
+if(cached){
+  applyDashboard(cached);
+  renderAll();
+  showLoader(false);
+}else{
+  showLoader(true);
+}
+
 try{
 
-showLoader(true);
+const dash=await LifeAPI.dashboard();
 
-const { results, failures }=await fetchIndependently({
+applyDashboard(dash);
+Local.setCachedDashboard(dash);
 
-dashboard: ()=>LifeAPI.dashboard(),
-today: ()=>LifeAPI.today(),
-tomorrow: ()=>LifeAPI.tomorrow(),
-next7: ()=>LifeAPI.next7(),
-nextWeek: ()=>LifeAPI.nextWeek(),
-next30: ()=>LifeAPI.next30(),
-upcoming: ()=>LifeAPI.upcoming(),
-moods: ()=>LifeAPI.moods()
-
-});
-
-if(results.dashboard.ok) AppState.dashboard=results.dashboard.value||{};
-
-if(results.today.ok) applyTodaySplit(extractTasks(results.today.value));
-
-if(results.tomorrow.ok) AppState.tomorrow=extractTasks(results.tomorrow.value);
-
-if(results.next7.ok) AppState.next7=extractTasks(results.next7.value);
-
-if(results.nextWeek.ok) AppState.nextWeek=extractTasks(results.nextWeek.value);
-
-if(results.next30.ok) AppState.next30=extractTasks(results.next30.value);
-
-if(results.upcoming.ok) AppState.upcoming=extractTasks(results.upcoming.value);
-
-if(results.moods.ok){
-  const m=results.moods.value;
-  AppState.moods=(m && (m.logs||m))||[];
-  if(!Array.isArray(AppState.moods)) AppState.moods=[];
-}
-
-renderGreeting();
-renderDashboard();
-renderUpcoming();
-renderCharts();
-renderMood();
-
-if(failures.length){
-  showError(`Some sections didn't load: ${failures.join(" · ")}`);
-}
+renderAll();
 
 // Flush anything the Chat Planner queued while offline/unreachable.
 flushPendingTasks();
@@ -429,7 +456,10 @@ catch(err){
 
 console.error(err);
 
-showError(err.message);
+showError(cached
+  ? `Couldn't refresh — showing your last saved data. (${err.message})`
+  : err.message
+);
 
 }
 finally{
@@ -440,25 +470,22 @@ showLoader(false);
 
 }
 
-// Refreshes just "today" + "dashboard" in the background — used after a
-// task action to reconcile with the server without refetching all 8
-// endpoints.
+// Refreshes everything in the background — used after a task action to
+// reconcile with the server. Still just one request.
 async function refreshTodayInBackground(){
 
-const { results, failures }=await fetchIndependently({
-  dashboard: ()=>LifeAPI.dashboard(),
-  today: ()=>LifeAPI.today()
-});
+try{
 
-if(results.dashboard.ok) AppState.dashboard=results.dashboard.value||{};
-
-if(results.today.ok) applyTodaySplit(extractTasks(results.today.value));
-
+const dash=await LifeAPI.dashboard();
+applyDashboard(dash);
+Local.setCachedDashboard(dash);
 renderDashboard();
 renderCharts();
 
-if(failures.length){
-  console.warn("Background refresh partial failure:", failures.join(" · "));
+}catch(err){
+
+console.warn("Background refresh failed:", err.message);
+
 }
 
 }
@@ -739,6 +766,20 @@ toast.classList.remove("show");
 },5000);
 
 }
+
+/* ==========================
+THEME
+Applies the saved accent color as a CSS variable. Called immediately
+(not just on DOMContentLoaded) so returning users don't see a flash of
+the default blue before their chosen color kicks in.
+========================== */
+
+function applyAccentColor(hex){
+  const color=hex || Local.getSettings().accentColor || "#4da3ff";
+  document.documentElement.style.setProperty("--primary", color);
+}
+
+applyAccentColor();
 
 document.addEventListener(
 
