@@ -58,6 +58,46 @@ else salutation="Good Night";
 
 el.textContent=name ? `${salutation}, ${name}` : salutation;
 
+renderInsightLine(dateEl, hour);
+
+}
+
+// A one-line, personalized status under the date — built from data
+// that's already loaded, so it costs nothing extra to compute. Swaps
+// between a pending-task nudge and a mood-aware note depending on
+// what's actually true right now.
+function renderInsightLine(dateEl, hour){
+
+if(!dateEl) return;
+
+let line=document.getElementById("insightLine");
+
+if(!line){
+  line=document.createElement("p");
+  line.id="insightLine";
+  line.style.cssText="margin-top:4px;color:var(--muted);font-size:13px;";
+  dateEl.insertAdjacentElement("afterend", line);
+}
+
+const pending=AppState.todayPending?.length || 0;
+const total=AppState.todayTotal || 0;
+
+let text;
+
+if(total===0){
+  text="Nothing on the books today — a clean slate.";
+}else if(pending===0){
+  text="Everything's done for today 🎉";
+}else if(pending===1){
+  text="One task left today — you've got this.";
+}else if(hour>=21 || hour<5){
+  text=`${pending} tasks still open — worth wrapping up or pushing to tomorrow.`;
+}else{
+  text=`${pending} of ${total} tasks left today.`;
+}
+
+line.textContent=text;
+
 }
 
 function renderDashboard() {
