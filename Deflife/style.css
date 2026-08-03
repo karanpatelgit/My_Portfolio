@@ -274,6 +274,8 @@ border-radius:40px;
 
 font-weight:600;
 
+transition:background .3s;
+
 }
 
 .success{
@@ -669,6 +671,38 @@ background:rgba(255,255,255,.08);
 color:var(--text);
 
 border-bottom-left-radius:4px;
+
+}
+
+/* ========================= */
+
+.accent-swatch{
+
+width:36px;
+
+height:36px;
+
+border-radius:50%;
+
+cursor:pointer;
+
+border:2px solid transparent;
+
+transition:.2s;
+
+}
+
+.accent-swatch:hover{
+
+transform:scale(1.08);
+
+}
+
+.accent-swatch.active{
+
+border-color:#ffffff;
+
+box-shadow:0 0 0 3px rgba(255,255,255,.15);
 
 }
 
