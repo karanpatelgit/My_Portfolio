@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <?!= include('Styles'); ?>
+  </head>
+  <body>
+    <div id="loader" class="screen flex-center">
+      <h2>Loading Quaternion OS...</h2>
+    </div>
+
+    <div id="auth-error" class="screen flex-center hidden">
+      <h2>Access Denied</h2>
+      <p>You are not registered in the Quaternion system.</p>
+      <p>Logged in as: <span id="err-email"></span></p>
+    </div>
+
+    <div id="app" class="hidden">
+      <nav class="sidebar">
+        <div class="logo">Quaternion</div>
+        <ul class="nav-links">
+          <li onclick="switchView('dashboard')" class="active" id="nav-dashboard">Dashboard</li>
+          <li onclick="switchView('tasks')" id="nav-tasks">Tasks</li>
+        </ul>
+        <div class="user-info">
+          <div id="user-name">Name</div>
+          <div id="user-role" class="badge">Role</div>
+        </div>
+      </nav>
+
+      <main class="content">
+        <header class="topbar">
+          <h1 id="page-title">Dashboard</h1>
+          <button class="btn-primary" onclick="openTaskModal()">+ New Task</button>
+        </header>
+
+        <div id="view-dashboard" class="view">
+          <div class="kpi-grid">
+            <div class="kpi-card"><div class="kpi-title">Total Tasks</div><div class="kpi-val" id="kpi-total">0</div></div>
+            <div class="kpi-card"><div class="kpi-title">In Progress</div><div class="kpi-val" id="kpi-prog">0</div></div>
+            <div class="kpi-card"><div class="kpi-title">Overdue</div><div class="kpi-val text-danger" id="kpi-overdue">0</div></div>
+            <div class="kpi-card"><div class="kpi-title">Completed</div><div class="kpi-val text-success" id="kpi-comp">0</div></div>
+          </div>
+        </div>
+
+        <div id="view-tasks" class="view hidden">
+          <div class="table-container">
+            <table id="task-table">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Assignee</th>
+                  <th>Priority</th>
+                  <th>Status</th>
+                  <th>Progress</th>
+                  <th>Deadline</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="task-list"></tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Task Modal -->
+    <div id="task-modal" class="modal hidden">
+      <div class="modal-content">
+        <h3 id="modal-title">Create Task</h3>
+        <input type="hidden" id="task-id">
+        <div class="form-group">
+          <label>Title</label>
+          <input type="text" id="task-title" required>
+        </div>
+        <div class="form-group">
+          <label>Assignee</label>
+          <select id="task-assignee"></select>
+        </div>
+        <div class="form-group">
+          <label>Priority</label>
+          <select id="task-priority">
+            <option value="Low">Low</option><option value="Medium">Medium</option><option value="High">High</option><option value="Critical">Critical</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Status</label>
+          <select id="task-status">
+            <option value="Not Started">Not Started</option><option value="In Progress">In Progress</option><option value="Blocked">Blocked</option><option value="Completed">Completed</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Progress (%)</label>
+          <input type="number" id="task-progress" min="0" max="100" value="0">
+        </div>
+        <div class="form-group">
+          <label>Deadline</label>
+          <input type="date" id="task-deadline">
+        </div>
+        <div class="modal-actions">
+          <button class="btn-secondary" onclick="closeTaskModal()">Cancel</button>
+          <button class="btn-primary" onclick="submitTask()">Save Task</button>
+        </div>
+      </div>
+    </div>
+
+    <?!= include('Scripts'); ?>
+  </body>
+</html>
