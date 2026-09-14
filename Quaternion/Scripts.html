@@ -1,0 +1,152 @@
+<script>
+  let appData = {};
+
+  // Initialize
+  window.onload = function() {
+    google.script.run.withSuccessHandler(initApp).withFailureHandler(showError).getAppInitialData();
+  };
+
+  function initApp(data) {
+    document.getElementById('loader').classList.add('hidden');
+    if (!data.authorized) {
+      document.getElementById('auth-error').classList.remove('hidden');
+      document.getElementById('err-email').innerText = data.email;
+      return;
+    }
+    
+    appData = data;
+    document.getElementById('app').classList.remove('hidden');
+    
+    // Setup User Info
+    document.getElementById('user-name').innerText = data.user.name;
+    document.getElementById('user-role').innerText = data.user.role + " - " + data.user.department;
+    
+    populateUsersDropdown();
+    renderDashboard();
+    renderTasks();
+  }
+
+  function showError(err) {
+    alert("System Error: " + err);
+  }
+
+  function switchView(viewId) {
+    document.querySelectorAll('.view').forEach(v => v.classList.add('hidden'));
+    document.querySelectorAll('.nav-links li').forEach(l => l.classList.remove('active'));
+    
+    document.getElementById(`view-${viewId}`).classList.remove('hidden');
+    document.getElementById(`nav-${viewId}`).classList.add('active');
+    
+    document.getElementById('page-title').innerText = viewId === 'dashboard' ? 'Dashboard' : 'Task Management';
+  }
+
+  function renderDashboard() {
+    const tasks = appData.tasks;
+    let comp = 0, prog = 0, overdue = 0;
+    const now = new Date();
+
+    tasks.forEach(t => {
+      if (t.Status === 'Completed') comp++;
+      if (t.Status === 'In Progress') prog++;
+      if (new Date(t.Deadline) < now && t.Status !== 'Completed') overdue++;
+    });
+
+    document.getElementById('kpi-total').innerText = tasks.length;
+    document.getElementById('kpi-comp').innerText = comp;
+    document.getElementById('kpi-prog').innerText = prog;
+    document.getElementById('kpi-overdue').innerText = overdue;
+  }
+
+  function renderTasks() {
+    const tbody = document.getElementById('task-list');
+    tbody.innerHTML = '';
+    
+    appData.tasks.forEach(t => {
+      const deadlineStr = t.Deadline ? new Date(t.Deadline).toLocaleDateString() : '-';
+      const statusClass = t.Status.replace(' ', '-');
+      
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><strong>${t.Title}</strong></td>
+        <td>${t.AssigneeEmail.split('@')[0]}</td>
+        <td>${t.Priority}</td>
+        <td><span class="status-tag status-${statusClass}">${t.Status}</span></td>
+        <td>
+          <div style="background: #e5e7eb; border-radius: 4px; width: 100%; height: 8px;">
+            <div style="background: var(--primary); height: 100%; border-radius: 4px; width: ${t.Progress}%;"></div>
+          </div>
+          <small>${t.Progress}%</small>
+        </td>
+        <td>${deadlineStr}</td>
+        <td><button class="btn-secondary" onclick="editTask('${t.TaskID}')">Edit</button></td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function populateUsersDropdown() {
+    const select = document.getElementById('task-assignee');
+    select.innerHTML = '<option value="">Select Assignee...</option>';
+    appData.users.forEach(u => {
+      select.innerHTML += `<option value="${u.email}">${u.name} (${u.dept})</option>`;
+    });
+  }
+
+  // --- Task Form Handling ---
+  function openTaskModal() {
+    document.getElementById('task-modal').classList.remove('hidden');
+    document.getElementById('modal-title').innerText = 'Create Task';
+    document.getElementById('task-id').value = '';
+    document.getElementById('task-title').value = '';
+    document.getElementById('task-progress').value = '0';
+  }
+
+  function closeTaskModal() {
+    document.getElementById('task-modal').classList.add('hidden');
+  }
+
+  function editTask(taskId) {
+    const task = appData.tasks.find(t => t.TaskID === taskId);
+    if (!task) return;
+    
+    openTaskModal();
+    document.getElementById('modal-title').innerText = 'Edit Task';
+    document.getElementById('task-id').value = task.TaskID;
+    document.getElementById('task-title').value = task.Title;
+    document.getElementById('task-assignee').value = task.AssigneeEmail;
+    document.getElementById('task-priority').value = task.Priority;
+    document.getElementById('task-status').value = task.Status;
+    document.getElementById('task-progress').value = task.Progress;
+    document.getElementById('task-deadline').value = task.Deadline ? new Date(task.Deadline).toISOString().split('T')[0] : '';
+  }
+
+  function submitTask() {
+    const btn = document.querySelector('#task-modal .btn-primary');
+    btn.innerText = 'Saving...';
+    btn.disabled = true;
+
+    const data = {
+      TaskID: document.getElementById('task-id').value,
+      Title: document.getElementById('task-title').value,
+      Description: '',
+      AssigneeEmail: document.getElementById('task-assignee').value,
+      Department: appData.users.find(u => u.email === document.getElementById('task-assignee').value)?.dept || '',
+      Priority: document.getElementById('task-priority').value,
+      Status: document.getElementById('task-status').value,
+      Progress: parseInt(document.getElementById('task-progress').value) || 0,
+      Deadline: document.getElementById('task-deadline').value,
+      StartDate: new Date().toISOString()
+    };
+
+    google.script.run.withSuccessHandler(res => {
+      initApp(res); // re-render
+      closeTaskModal();
+      btn.innerText = 'Save Task';
+      btn.disabled = false;
+    }).withFailureHandler(err => {
+      showError(err);
+      btn.innerText = 'Save Task';
+      btn.disabled = false;
+    }).saveTask(data);
+  }
+</script>
